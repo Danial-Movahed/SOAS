@@ -4,5 +4,5 @@ from Gui import Login
 if __name__ == '__main__':
     app = QApplication([])
     app.setApplicationName("SOAS")
-    wnd = Login()
+    wnd = Login.Login()
     app.exec()

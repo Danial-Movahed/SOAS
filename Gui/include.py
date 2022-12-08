@@ -31,23 +31,20 @@ class CDialog(QDialog):
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
 
-
 class Agahi(Base):
+    __tablename__ = "Agahi"
     Title = Column(String(), primary_key=True, nullable=False)
     Message = Column(String(), nullable=False)
     Writer = Column(String(), nullable=False)
-    House = Column(House(), nullable=False)
-
-class House:
-    CityPart = ""
-    Meter = ""
-    Room = ""
-    YearsOld = ""
-    Floor = ""
-    HasParking = ""
-    HasStoreroom = ""
-
+    CityPart= Column(String(), nullable=False)
+    Meter = Column(String(), nullable=False)
+    Room = Column(String(), nullable=False)
+    YearsOld = Column(String(), nullable=False)
+    Floor = Column(String(), nullable=False)
+    HasParking = Column(String(), nullable=False)
+    HasStoreroom = Column(String(), nullable=False)
 class User(Base):
+    __tablename__ = "User"
     Username = Column(String(), primary_key=True, nullable=False)
     Password = Column(String(), nullable=False)
     isAdmin = Column(Boolean(), nullable=False)
