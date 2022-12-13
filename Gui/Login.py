@@ -1,7 +1,6 @@
 from .include import *
 from . import ui_Login, FirstTimeSetup
-# from . import AmlakiMgr,AmlakiMgrAdmin
-
+from . import AmlakiMgr,AmlakiMgrAdmin
 
 class Login(QMainWindow, ui_Login.Ui_MainWindow):
     def __init__(self):
@@ -17,8 +16,8 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
             Column('Password', String),
             Column('isAdmin', Boolean),
         )
-        self.AgahiTable = Table(
-            'Agahis', self.meta, 
+        self.AdTable = Table(
+            'Ads', self.meta, 
             Column("Title", String, primary_key=True),
             Column("Message", String),
             Column("Writer", String),
@@ -43,10 +42,10 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
             self.LoginLabel.setText("Wrong username or password!")
             return None
         self.LoginLabel.setText("Welcome!")
-        # if user.isAdmin:
-        #     self.AmlakiMgr = AmlakiMgrAdmin()
-        # else:
-        #     self.AmlakiMgr = AmlakiMgr()
+        if user.isAdmin:
+            self.AmlakiMgr = AmlakiMgrAdmin()
+        else:
+            self.AmlakiMgr = AmlakiMgr()
 
     def firstTimeSetup(self):
         self.FTSWnd = FirstTimeSetup.FirstTimeSetup()
