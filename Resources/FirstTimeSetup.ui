@@ -16,32 +16,33 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <spacer name="verticalSpacer_4">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::MinimumExpanding</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>110</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
      <layout class="QVBoxLayout" name="verticalLayout_10">
       <item>
-       <widget class="QLabel" name="LoginLabel">
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::MinimumExpanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>110</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="FTSLabel">
         <property name="font">
          <font>
           <pointsize>21</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Enter the username and password:</string>
+         <string>First time setup!
+Enter admin username and password!</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -80,7 +81,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="LoginUsername">
+         <widget class="QLineEdit" name="FTSUsername">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -146,7 +147,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="LoginPassword">
+         <widget class="QLineEdit" name="FTSPassword">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -218,7 +219,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="LoginQuitBtn">
+       <widget class="QPushButton" name="FTSQuitbtn">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -262,7 +263,7 @@ border-radius: 10px;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="LoginContinueBtn">
+       <widget class="QPushButton" name="FTSContinuebtn">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
