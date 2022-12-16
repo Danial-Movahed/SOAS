@@ -58,12 +58,12 @@ AdTable = Table(
     Column("Message", String),
     Column("Writer", String),
     Column("CityPart", String),
-    Column("Meter", String),
-    Column("Room", String),
+    Column("Meter", Integer),
+    Column("Room", Integer),
     Column("YearsOld", String),
-    Column("Floor", String),
-    Column("HasParking", Boolean),
-    Column("HasStoreroom", Boolean),
+    Column("Floor", Integer),
+    Column("HasParking", String),
+    Column("HasStoreroom", String),
 )
 meta.create_all(engine)
 DBConnection = engine.connect()

@@ -121,7 +121,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="MeterSpin"/>
+             <widget class="QSpinBox" name="MeterSpin">
+              <property name="maximum">
+               <number>1000</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -210,7 +214,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="FloorSpin"/>
+             <widget class="QSpinBox" name="FloorSpin">
+              <property name="maximum">
+               <number>1000</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

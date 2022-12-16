@@ -36,11 +36,11 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
             self.LoginLabel.setText("Your user is not verified!")
             return
         self.LoginLabel.setText("Welcome!")
-        if user[0].isAdmin:
-            self.AmlakiMgr = AmlakiManagerAdmin.AmlakiManagerAdmin()
+        if user[0][2]:
+            self.AmlakiMgr = AmlakiManagerAdmin.AmlakiManagerAdmin(user[0])
             self.close()
         else:
-            self.AmlakiMgr = AmlakiManager.AmlakiManager()
+            self.AmlakiMgr = AmlakiManager.AmlakiManager(user[0])
             self.close()
 
     def firstTimeSetup(self):
