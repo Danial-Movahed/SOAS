@@ -14,6 +14,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.show()
 
     def __refresh(self):
+        self.AdList.clear()
         for x in DBConnection.execute(AdTable.select()).fetchall():
             if x[2] != self.username[0]:
                 self.AdList.addItem(x[0])
