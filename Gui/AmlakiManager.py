@@ -6,7 +6,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.AmlakiMgmt.clicked.connect(lambda: self.__OpenAmlakiMgmt())
+        self.AmlakiMgmt.clicked.connect(lambda: self.OpenAmlakiMgmt())
         # DBConnection.execute(AdTable.insert().values(Title = "test1"))
         self.AdList.addItems(
             [x[0] for x in DBConnection.execute(AdTable.select()).fetchall()])
@@ -47,7 +47,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         (AdTable.c.HasParking == Parking) & 
         (AdTable.c.HasStoreroom == Store)))])
 
-    def __OpenAmlakiMgmt(self):
+    def OpenAmlakiMgmt(self):
         self.err = ErrorDialog(
             "You do not have the permission to open amlaki management!", self)
         self.err.exec()

@@ -18,18 +18,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
-    <property name="leftMargin">
-     <number>25</number>
-    </property>
-    <property name="topMargin">
-     <number>25</number>
-    </property>
-    <property name="rightMargin">
-     <number>25</number>
-    </property>
-    <property name="bottomMargin">
-     <number>25</number>
-    </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -40,7 +28,7 @@
          </font>
         </property>
         <property name="placeholderText">
-         <string>Post title</string>
+         <string>Ad title</string>
         </property>
        </widget>
       </item>
@@ -52,38 +40,181 @@
          </font>
         </property>
         <property name="placeholderText">
-         <string>Post message</string>
+         <string>Ad message</string>
         </property>
        </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QCheckBox" name="isPrivate">
-          <property name="font">
-           <font>
-            <pointsize>15</pointsize>
-           </font>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>4</number>
           </property>
-          <property name="text">
-           <string>Private?</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="EditCreateWhoCanRead">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="placeholderText">
-           <string>Who can read this post?</string>
-          </property>
-         </widget>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Has store room?</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="StoreCombo">
+              <item>
+               <property name="text">
+                <string>Not selected</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Yes</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>No</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Has parking?</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="ParkingCombo">
+              <item>
+               <property name="text">
+                <string>Not selected</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Yes</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>No</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Meters</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="MeterSpin"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Rooms</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="RoomSpin"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Year of construction</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>City Part</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="CityPartCombo">
+              <item>
+               <property name="text">
+                <string>Not selected</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>North</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>South</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>East</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>West</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Floor</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -160,7 +291,7 @@ padding: 0px 5px;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
