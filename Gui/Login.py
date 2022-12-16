@@ -1,6 +1,6 @@
 from .include import *
-from . import ui_Login, FirstTimeSetup
-from . import AmlakiMgr,AmlakiMgrAdmin
+from . import AmlakiManager, ui_Login, FirstTimeSetup, AmlakiManagerAdmin, SignUp
+
 
 class Login(QMainWindow, ui_Login.Ui_MainWindow):
     def __init__(self):
@@ -8,44 +8,40 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
         self.setupUi(self)
         self.LoginContinueBtn.clicked.connect(lambda: self.check())
         self.LoginQuitBtn.clicked.connect(lambda: self.close())
-        self.engine = create_engine('sqlite:///Database.db', echo = True)
-        self.meta = MetaData()
-        self.UsersTable = Table(
-            'Users', self.meta, 
-            Column('Username', String, primary_key=True), 
-            Column('Password', String),
-            Column('isAdmin', Boolean),
-        )
-        self.AdTable = Table(
-            'Ads', self.meta, 
-            Column("Title", String, primary_key=True),
-            Column("Message", String),
-            Column("Writer", String),
-            Column("CityPart", String),
-            Column("Meter", String),
-            Column("Room", String),
-            Column("YearsOld", String),
-            Column("Floor", String),
-            Column("HasParking", String),
-            Column("HasStoreroom", String),
-        )
-        self.meta.create_all(self.engine)
-        self.DBConnection = self.engine.connect()
-        if len(self.DBConnection.execute(self.UsersTable.select()).fetchall()) == 0:
+        self.LoginSignUpBtn.clicked.connect(lambda: self.signUp())
+        if len(DBConnection.execute(UsersTable.select()).fetchall()) == 0:
             self.firstTimeSetup()
             return
         self.show()
 
+    def signUp(self):
+        self.SignUpWnd = SignUp.SignUp()
+        self.SignUpWnd.closeEvent = self.signUpSave
+
+    def signUpSave(self, e):
+        if self.SignUpWnd.State:
+            DBConnection.execute(UsersTable.insert().values(Username=self.SignUpWnd.SignUpUsername.text(
+            ), Password=blake2s((self.SignUpWnd.SignUpPassword.text()).encode()).hexdigest(), isAdmin=False, isVerified=False))
+            self.dialog = CDialog(
+                "User created, waiting for admin verification!", "Waiting", self)
+            self.dialog.exec()
+
     def check(self):
-        user = self.DBConnection.execute(self.UsersTable.select().where(self.UsersTable.c.Username == self.LoginUsername.text() and self.UsersTable.c.Password == blake2s((self.LoginPassword.text()).encode()).hexdigest()))
-        if user == None:
+        user = DBConnection.execute(UsersTable.select().where((UsersTable.c.Username == self.LoginUsername.text()) &
+        (UsersTable.c.Password == blake2s((self.LoginPassword.text()).encode()).hexdigest()))).fetchall()
+        if len(user) == 0:
             self.LoginLabel.setText("Wrong username or password!")
-            return None
+            return
+        if not user[0][3]:
+            self.LoginLabel.setText("Your user is not verified!")
+            return
         self.LoginLabel.setText("Welcome!")
-        if user.isAdmin:
-            self.AmlakiMgr = AmlakiMgrAdmin()
+        if user[0].isAdmin:
+            self.AmlakiMgr = AmlakiManagerAdmin.AmlakiManagerAdmin()
+            self.close()
         else:
-            self.AmlakiMgr = AmlakiMgr()
+            self.AmlakiMgr = AmlakiManager.AmlakiManager()
+            self.close()
 
     def firstTimeSetup(self):
         self.FTSWnd = FirstTimeSetup.FirstTimeSetup()
@@ -53,7 +49,8 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
 
     def firstTimeSetupSave(self, e):
         if self.FTSWnd.State:
-            self.DBConnection.execute(self.UsersTable.insert().values(Username = self.FTSWnd.FTSUsername.text(), Password =  blake2s((self.FTSWnd.FTSPassword.text()).encode()).hexdigest(), isAdmin = True))
+            DBConnection.execute(UsersTable.insert().values(Username=self.FTSWnd.FTSUsername.text(
+            ), Password=blake2s((self.FTSWnd.FTSPassword.text()).encode()).hexdigest(), isAdmin=True, isVerified=True))
             self.show()
             return
         self.close()

@@ -41,3 +41,29 @@ class ErrorDialog(QDialog):
         self.layout.addWidget(message)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
+
+
+engine = create_engine('sqlite:///Database.db', echo = False)
+meta = MetaData()
+UsersTable = Table(
+    'Users', meta, 
+    Column('Username', String, primary_key=True), 
+    Column('Password', String),
+    Column('isAdmin', Boolean),
+    Column('isVerified', Boolean),
+)
+AdTable = Table(
+    'Ads', meta, 
+    Column("Title", String, primary_key=True),
+    Column("Message", String),
+    Column("Writer", String),
+    Column("CityPart", String),
+    Column("Meter", String),
+    Column("Room", String),
+    Column("YearsOld", String),
+    Column("Floor", String),
+    Column("HasParking", Boolean),
+    Column("HasStoreroom", Boolean),
+)
+meta.create_all(engine)
+DBConnection = engine.connect()

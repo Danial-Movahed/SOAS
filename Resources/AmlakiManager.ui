@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>678</height>
+    <height>673</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_8">
+   <layout class="QVBoxLayout" name="verticalLayout_11">
     <item>
      <spacer name="verticalSpacer_2">
       <property name="orientation">
@@ -34,7 +34,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QLabel" name="BlogTitle">
+       <widget class="QLabel" name="UsernameLabel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -57,7 +57,7 @@ padding: 5px 10px;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="MyReqs">
         <property name="font">
          <font>
           <pointsize>15</pointsize>
@@ -69,7 +69,7 @@ padding: 5px 10px;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="BlogMgmt">
+       <widget class="QPushButton" name="MyAds">
         <property name="font">
          <font>
           <pointsize>15</pointsize>
@@ -80,6 +80,18 @@ padding: 5px 10px;</string>
         </property>
         <property name="text">
          <string>My ads</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="AmlakiMgmt">
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Management</string>
         </property>
        </widget>
       </item>
@@ -121,22 +133,15 @@ padding: 5px 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_3"/>
+           <widget class="QComboBox" name="FloorCombo">
+            <item>
+             <property name="text">
+              <string>Not selected</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -148,7 +153,12 @@ padding: 5px 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox">
+           <widget class="QComboBox" name="CityPartCombo">
+            <item>
+             <property name="text">
+              <string>Not selected</string>
+             </property>
+            </item>
             <item>
              <property name="text">
               <string>North</string>
@@ -174,19 +184,6 @@ padding: 5px 10px;</string>
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
            <widget class="QLabel" name="label_4">
@@ -196,22 +193,15 @@ padding: 5px 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_2"/>
+           <widget class="QComboBox" name="YearCombo">
+            <item>
+             <property name="text">
+              <string>Not selected</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -223,22 +213,9 @@ padding: 5px 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox_2"/>
+           <widget class="QSpinBox" name="RoomSpin"/>
           </item>
          </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -250,39 +227,72 @@ padding: 5px 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="spinBox"/>
+           <widget class="QSpinBox" name="MeterSpin"/>
           </item>
          </layout>
         </item>
         <item>
-         <spacer name="verticalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
+         <layout class="QVBoxLayout" name="verticalLayout_10">
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Has parking?</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="ParkingCombo">
+            <item>
+             <property name="text">
+              <string>Not selected</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Yes</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>No</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox">
-          <property name="text">
-           <string>Parking?</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Has store room?</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="StoreCombo">
+            <item>
+             <property name="text">
+              <string>Not selected</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Yes</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>No</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_2">
-          <property name="text">
-           <string>Store Room?</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="ViewPost">
+         <widget class="QPushButton" name="SearchBtn">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -292,7 +302,7 @@ padding: 5px 10px;</string>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>16777215</height>
+            <height>100</height>
            </size>
           </property>
           <property name="font">
@@ -313,7 +323,7 @@ padding: 0px 5px;</string>
        </layout>
       </item>
       <item>
-       <widget class="QListWidget" name="PostList">
+       <widget class="QListWidget" name="AdList">
         <property name="font">
          <font>
           <pointsize>15</pointsize>
@@ -351,7 +361,7 @@ border-radius:10px;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFIle">
