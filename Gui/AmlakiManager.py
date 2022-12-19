@@ -1,16 +1,21 @@
 from .include import *
-from . import MyAds,ui_AmlakiManager
+from . import MyAds,ui_AmlakiManager,MyRequests
 
 class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
     def __init__(self,username):
         super().__init__()
         self.setupUi(self)
-        self.username = username
         self.AmlakiMgmt.clicked.connect(lambda: self.OpenAmlakiMgmt())
-        self.__refresh()
         self.MyAds.clicked.connect(lambda: self.__MyAds())
         self.SearchBtn.clicked.connect(lambda: self.__Search())
+        self.MyReqs.clicked.connect(lambda: self.__MyReqs())
+        self.username = username
+        self.__refresh()
         self.show()
+
+    def __MyReqs(self):
+        self.MyReqsWnd = MyRequests.MyRequests()
+        self.MyReqsWnd.closeEvent = self.__refresh
 
     def __refresh(self,e=None):
         self.AdList.clear()
@@ -66,7 +71,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
             ((Parking == None) or (AdTable.c.HasParking == Parking)),
             ((Store == None) or (AdTable.c.HasStoreroom == Store))
         )):
-            if x[2]!=self.username[0]:
+            # if x[2]!=self.username[0]:
                 self.AdList.addItem(x[0])
 
     def OpenAmlakiMgmt(self):
