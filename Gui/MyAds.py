@@ -34,5 +34,5 @@ class MyAds(QMainWindow, ui_MyAds.Ui_MainWindow):
     def __refresh(self,e=None):
         self.MyAdList.clear()
         for x in DBConnection.execute(AdTable.select()).fetchall():
-            if x[2] == self.username[0]:
+            if x[2] == self.username:
                 self.MyAdList.addItem(x[0])

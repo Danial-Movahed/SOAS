@@ -1,5 +1,5 @@
 from .include import *
-from . import AmlakiManager
+from . import AmlakiManager,Management
 
 
 class AmlakiManagerAdmin(AmlakiManager.AmlakiManager):
@@ -7,5 +7,5 @@ class AmlakiManagerAdmin(AmlakiManager.AmlakiManager):
         super().__init__(username)
 
     def OpenAmlakiMgmt(self):
-        self.err = ErrorDialog("This is not implemented yet!", self)
-        self.err.exec()
+        self.ManagementWnd = Management.Management()
+        self.ManagementWnd.closeEvent = self.refresh

@@ -1,5 +1,5 @@
 from .include import *
-from . import ui_MyRequests
+from . import ui_MyRequests,ViewRequest
 
 
 class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
@@ -13,8 +13,6 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
         # Sent
         self.DeleteSentRequestBtn.clicked.connect(
             lambda: self.__DeleteSentRequest())
-        self.EditSentRequestBtn.clicked.connect(
-            lambda: self.__EditSentRequest())
         self.ViewSentRequestBtn.clicked.connect(
             lambda: self.__ViewSentRequest())
         # Received
@@ -35,27 +33,55 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             RequestTable.c.Username == self.username)).fetchall()
 
         for i in self.requestsReceived:
+            if i[5] == "Accepted":
+                continue
             self.ReceivedRequests.addTopLevelItem(
-                QTreeWidgetItem([i[0], i[3], i[1], i[2]]))
+                QTreeWidgetItem([i[0], i[3], i[1], i[2], i[5]]))
 
         for i in self.requestsSent:
             self.SentRequests.addTopLevelItem(
                 QTreeWidgetItem([i[0], i[3], i[1], i[2], i[5]]))
 
     def __DeleteSentRequest(self):
-        pass
-
-    def __EditSentRequest(self):
-        pass
+        DBConnection.execute(RequestTable.delete().where(
+            RequestTable.c.Title == self.SentRequests.selectedItems()[0].text(0),
+            RequestTable.c.Username == self.SentRequests.selectedItems()[0].text(1),
+            RequestTable.c.Details == self.SentRequests.selectedItems()[0].text(2),
+            RequestTable.c.Price == self.SentRequests.selectedItems()[0].text(3),
+        ))
+        self.__refresh()
 
     def __ViewSentRequest(self):
-        pass
+        self.ViewReqWnd = ViewRequest.ViewRequest(DBConnection.execute(RequestTable.select().where(
+            RequestTable.c.Title == self.SentRequests.selectedItems()[0].text(0),
+            RequestTable.c.Username == self.SentRequests.selectedItems()[0].text(1),
+            RequestTable.c.Details == self.SentRequests.selectedItems()[0].text(2),
+            RequestTable.c.Price == self.SentRequests.selectedItems()[0].text(3),
+        )).fetchall()[0][6])
 
     def __ViewReceivedRequest(self):
-        pass
+            self.ViewReqWnd = ViewRequest.ViewRequest(DBConnection.execute(RequestTable.select().where(
+            RequestTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
+            RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
+            RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
+            RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
+        )).fetchall()[0][6])
 
     def __AcceptReceivedRequest(self):
-        pass
+        DBConnection.execute(RequestTable.update().where(
+            RequestTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
+            RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
+            RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
+            RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
+        ).values(Status = "Waiting for admin"))
+        # DBConnection.execute(AdTable.update().where(
+        #     AdTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0)
+        # ).values(
+        #     isSold = True,
+        #     Owner = self.ReceivedRequests.selectedItems()[0].text(1),
+        #     Title = DBConnection.execute(AdTable.select().where(AdTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0))).fetchall()[0][0]+" Sold Out!"
+        #     ))
+        self.__refresh()
 
     def __DeclineReceivedRequest(self):
         if len(self.ReceivedRequests.selectedItems()) == 0:

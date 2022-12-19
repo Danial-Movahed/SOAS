@@ -34,6 +34,10 @@ class ShowAd(QMainWindow, ui_ShowAd.Ui_MainWindow):
         self.FloorSpin.setValue(int(self.Ad[7]))
         self.CloseBtn.clicked.connect(lambda: self.close())
         self.RequestBtn.clicked.connect(lambda: self.__Request())
+        if self.Ad[10]:
+            self.CloseBtn.setEnabled(False)
+            self.RequestBtn.setEnabled(False)
+            self.Writer.setText(self.Writer.text()+" / Sold Out")
         self.show()
 
     def __Request(self):

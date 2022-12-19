@@ -64,7 +64,7 @@ AdTable = Table(
     Column("Floor", String),
     Column("HasParking", String),
     Column("HasStoreroom", String),
-    Column("isSold", String)
+    Column("isSold", Boolean)
 )
 RequestTable = Table(
     'Reqs', meta, 
