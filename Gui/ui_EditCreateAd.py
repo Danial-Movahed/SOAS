@@ -69,6 +69,7 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.verticalLayout_4.addWidget(self.label_2)
         self.MeterSpin = QtWidgets.QSpinBox(self.centralwidget)
+        self.MeterSpin.setMaximum(1000)
         self.MeterSpin.setObjectName("MeterSpin")
         self.verticalLayout_4.addWidget(self.MeterSpin)
         self.horizontalLayout_2.addLayout(self.verticalLayout_4)
@@ -86,14 +87,9 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setObjectName("label_4")
         self.verticalLayout_6.addWidget(self.label_4)
-        self.YearLineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.YearLineEdit.sizePolicy().hasHeightForWidth())
-        self.YearLineEdit.setSizePolicy(sizePolicy)
-        self.YearLineEdit.setObjectName("YearLineEdit")
-        self.verticalLayout_6.addWidget(self.YearLineEdit)
+        self.YearSpin = QtWidgets.QSpinBox(self.centralwidget)
+        self.YearSpin.setObjectName("YearSpin")
+        self.verticalLayout_6.addWidget(self.YearSpin)
         self.horizontalLayout_2.addLayout(self.verticalLayout_6)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -115,6 +111,7 @@ class Ui_MainWindow(object):
         self.label_5.setObjectName("label_5")
         self.verticalLayout_7.addWidget(self.label_5)
         self.FloorSpin = QtWidgets.QSpinBox(self.centralwidget)
+        self.FloorSpin.setMaximum(1000)
         self.FloorSpin.setObjectName("FloorSpin")
         self.verticalLayout_7.addWidget(self.FloorSpin)
         self.horizontalLayout_2.addLayout(self.verticalLayout_7)
@@ -166,7 +163,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+        
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))

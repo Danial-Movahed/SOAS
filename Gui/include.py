@@ -58,10 +58,10 @@ AdTable = Table(
     Column("Message", String),
     Column("Writer", String),
     Column("CityPart", String),
-    Column("Meter", Integer),
-    Column("Room", Integer),
+    Column("Meter", String),
+    Column("Room", String),
     Column("YearsOld", String),
-    Column("Floor", Integer),
+    Column("Floor", String),
     Column("HasParking", String),
     Column("HasStoreroom", String),
 )

@@ -16,7 +16,7 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
 
     def signUp(self):
         self.SignUpWnd = SignUp.SignUp()
-        self.SignUpWnd.closeEvent = self.signUpSave
+        self.SignUpWnd.closeEvent = self.signUpSave  # type: ignore
 
     def signUpSave(self, e):
         if self.SignUpWnd.State:
@@ -45,7 +45,7 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
 
     def firstTimeSetup(self):
         self.FTSWnd = FirstTimeSetup.FirstTimeSetup()
-        self.FTSWnd.closeEvent = self.firstTimeSetupSave
+        self.FTSWnd.closeEvent = self.firstTimeSetupSave  # type: ignore
 
     def firstTimeSetupSave(self, e):
         if self.FTSWnd.State:

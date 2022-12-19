@@ -121,7 +121,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="MeterSpin"/>
+             <widget class="QSpinBox" name="MeterSpin">
+              <property name="maximum">
+               <number>1000</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -149,14 +153,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="YearLineEdit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
+             <widget class="QSpinBox" name="YearSpin"/>
             </item>
            </layout>
           </item>
@@ -210,7 +207,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="FloorSpin"/>
+             <widget class="QSpinBox" name="FloorSpin">
+              <property name="maximum">
+               <number>1000</number>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

@@ -213,7 +213,13 @@ padding: 5px 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="RoomSpin"/>
+           <widget class="QComboBox" name="RoomCombo">
+            <item>
+             <property name="text">
+              <string>Not selected</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
         </item>
@@ -227,7 +233,13 @@ padding: 5px 10px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QSpinBox" name="MeterSpin"/>
+           <widget class="QComboBox" name="MeterCombo">
+            <item>
+             <property name="text">
+              <string>Not selected</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
         </item>
