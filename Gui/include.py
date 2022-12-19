@@ -56,7 +56,7 @@ AdTable = Table(
     'Ads', meta, 
     Column("Title", String, primary_key=True),
     Column("Message", String),
-    Column("Writer", String),
+    Column("Owner", String),
     Column("CityPart", String),
     Column("Meter", String),
     Column("Room", String),
@@ -64,6 +64,17 @@ AdTable = Table(
     Column("Floor", String),
     Column("HasParking", String),
     Column("HasStoreroom", String),
+    Column("isSold", String)
+)
+RequestTable = Table(
+    'Reqs', meta, 
+    Column("Title", String),
+    Column("Details", String),
+    Column("Price", String),
+    Column("Username", String),
+    Column("To", String),
+    Column("Status", String),
+    Column("Id", String, primary_key=True)
 )
 meta.create_all(engine)
 DBConnection = engine.connect()

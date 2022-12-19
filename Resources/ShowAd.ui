@@ -61,9 +61,16 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_9">
           <item>
-           <widget class="QCheckBox" name="StoreRoomCheck">
+           <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Has store room?</string>
+             <string>Have Store Room?</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="StoreRoomLine">
+            <property name="readOnly">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -72,9 +79,16 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_10">
           <item>
-           <widget class="QCheckBox" name="ParkingCheck">
+           <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>Has parking?</string>
+             <string>Have Parking?</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="ParkingLine">
+            <property name="readOnly">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

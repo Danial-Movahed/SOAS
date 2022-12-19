@@ -1,5 +1,5 @@
 from .include import *
-from . import MyAds,ui_AmlakiManager,MyRequests
+from . import MyAds,MyRequests,ShowAd,ui_AmlakiManager
 
 class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
     def __init__(self,username):
@@ -9,12 +9,16 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.MyAds.clicked.connect(lambda: self.__MyAds())
         self.SearchBtn.clicked.connect(lambda: self.__Search())
         self.MyReqs.clicked.connect(lambda: self.__MyReqs())
-        self.username = username
+        self.AdList.itemDoubleClicked.connect(self.__ViewAd)
+        self.username = username[0]
         self.__refresh()
         self.show()
 
+    def __ViewAd(self,item):
+        self.ShowAdWnd = ShowAd.ShowAd(item.text(),self.username)
+
     def __MyReqs(self):
-        self.MyReqsWnd = MyRequests.MyRequests()
+        self.MyReqsWnd = MyRequests.MyRequests(self.username)
         self.MyReqsWnd.closeEvent = self.__refresh
 
     def __refresh(self,e=None):

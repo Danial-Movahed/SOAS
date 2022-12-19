@@ -63,7 +63,7 @@ class EditCreateAd(QMainWindow, ui_EditCreateAd.Ui_MainWindow):
             DBConnection.execute(AdTable.insert().values(
                 Title = self.AdTitle.text(),
                 Message = self.AdMessage.toPlainText(),
-                Writer = self.username[0],
+                Owner = self.username[0],
                 Floor = str(self.FloorSpin.value()),
                 CityPart = self.CityPartCombo.currentText(),
                 YearsOld = str(self.YearSpin.value()),

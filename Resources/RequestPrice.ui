@@ -30,16 +30,26 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Enter your desired price</string>
+      <string>Enter your desired price:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="Price">
      <property name="placeholderText">
       <string>Price:</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Enter any details:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="Details"/>
    </item>
    <item>
     <spacer name="verticalSpacer">
