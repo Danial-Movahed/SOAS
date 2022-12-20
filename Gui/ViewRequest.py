@@ -10,5 +10,5 @@ class ViewRequest(QMainWindow, ui_ViewRequest.Ui_MainWindow):
         self.Title.setText("Request to buy: "+self.Request[0])
         self.Details.setText(self.Request[1])
         self.Price.setText(self.Request[2])
-        self.Writer.setText(self.Request[3]+" wants to buy!")
+        self.Writer.setText(self.Request[3]+" wants to buy from "+self.Request[4]+"!")
         self.show()

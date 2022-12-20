@@ -9,7 +9,7 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
         self.LoginContinueBtn.clicked.connect(lambda: self.check())
         self.LoginQuitBtn.clicked.connect(lambda: self.close())
         self.LoginSignUpBtn.clicked.connect(lambda: self.signUp())
-        if len(DBConnection.execute(UsersTable.select()).fetchall()) == 0:
+        if len(DBConnection.execute(UsersTable.select().where(UsersTable.c.isAdmin == True)).fetchall()) == 0:
             self.firstTimeSetup()
             return
         self.show()

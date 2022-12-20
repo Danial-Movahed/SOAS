@@ -7,5 +7,5 @@ class AmlakiManagerAdmin(AmlakiManager.AmlakiManager):
         super().__init__(username)
 
     def OpenAmlakiMgmt(self):
-        self.ManagementWnd = Management.Management()
+        self.ManagementWnd = Management.Management(username=self.username[0])
         self.ManagementWnd.closeEvent = self.refresh

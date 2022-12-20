@@ -1,11 +1,13 @@
+from matplotlib import use
 from .include import *
-from . import ui_Management,ShowAdAdmin
+from . import ui_Management,ShowAdAdmin,ViewRequest
 
 
 class Management(ui_Management.Ui_MainWindow, QMainWindow):
-    def __init__(self):
+    def __init__(self,username):
         super().__init__()
         self.setupUi(self)
+        self.username = username
         self.AcceptRequestBtn.clicked.connect(lambda: self.__AcceptRequest())
         self.DeclineRequestBtn.clicked.connect(lambda: self.__DeclineRequest())
         self.ViewRequestBtn.clicked.connect(lambda: self.__ViewRequest())
@@ -34,8 +36,8 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
 
     def __refresh(self):
         self.isRefreshing = True
+        ############# Users
         self.UsersTable.setRowCount(0)
-        self.AdList.clear()
         for u in DBConnection.execute(UsersTable.select().where()).fetchall():
             rowPosition = self.UsersTable.rowCount()
             self.UsersTable.insertRow(rowPosition)
@@ -60,18 +62,57 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
 
             self.UsersTable.setItem(rowPosition , 2, tmp)
             self.UsersTable.setItem(rowPosition , 3, QTableWidgetItem(u[1]))
-
+        ################# Ads
+        self.AdList.clear()
         self.AdList.addItems([x[0] for x in DBConnection.execute(AdTable.select().where())])
+        ################# Requests
+        self.Requests.clear()
+        for i in DBConnection.execute(
+        RequestTable.select().where(
+            RequestTable.c.Status == "Waiting for admin"
+        )).fetchall():
+            if i[5] == "Accepted":
+                continue
+            self.Requests.addTopLevelItem(
+                QTreeWidgetItem([i[0], i[3], i[1], i[2], i[5]]))
+
         self.isRefreshing = False
 
     def __AcceptRequest(self):
-        pass
-    
+        DBConnection.execute(RequestTable.update().where(
+            RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
+            RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
+            RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
+            RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
+        ).values(Status = "Accepted!"))
+        DBConnection.execute(AdTable.update().where(
+            AdTable.c.Title == self.Requests.selectedItems()[0].text(0)
+        ).values(
+            isSold = True,
+            Owner = self.Requests.selectedItems()[0].text(1),
+            Title = DBConnection.execute(AdTable.select().where(AdTable.c.Title == self.Requests.selectedItems()[0].text(0))).fetchall()[0][0]+" Sold Out!"
+            ))
+        self.__refresh()
+
     def __ViewRequest(self):
-        pass
+        if len(self.Requests.selectedItems()) == 0:
+            self.errDlg = ErrorDialog("Please select a request!", self)
+            self.errDlg.exec()
+        self.ViewReqWnd = ViewRequest.ViewRequest(DBConnection.execute(RequestTable.select().where(
+            RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
+            RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
+            RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
+            RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
+        )).fetchall()[0][6])
 
     def __DeclineRequest(self):
-        pass
+        DBConnection.execute(RequestTable.delete().where(
+            RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
+            RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
+            RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
+            RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
+        ))
+        self.__refresh()
 
     def __ViewAd(self):
         if len(self.AdList.selectedItems()) == 0:
@@ -86,4 +127,5 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
         DBConnection.execute(AdTable.delete().where(
             AdTable.c.Title == self.AdList.selectedItems()[0].text()
         ))
+        DBConnection.execute(RequestTable.delete().where(RequestTable.c.Title == self.AdList.selectedItems()[0].text()))
         self.__refresh()

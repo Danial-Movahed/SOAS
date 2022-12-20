@@ -74,13 +74,6 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
             RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
         ).values(Status = "Waiting for admin"))
-        # DBConnection.execute(AdTable.update().where(
-        #     AdTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0)
-        # ).values(
-        #     isSold = True,
-        #     Owner = self.ReceivedRequests.selectedItems()[0].text(1),
-        #     Title = DBConnection.execute(AdTable.select().where(AdTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0))).fetchall()[0][0]+" Sold Out!"
-        #     ))
         self.__refresh()
 
     def __DeclineReceivedRequest(self):
