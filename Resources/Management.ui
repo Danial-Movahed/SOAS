@@ -57,6 +57,16 @@
            <widget class="QTableWidget" name="UsersTable">
             <column>
              <property name="text">
+              <string>Username</string>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>13</pointsize>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
               <string>Verified?</string>
              </property>
              <property name="font">
@@ -77,16 +87,6 @@
             </column>
             <column>
              <property name="text">
-              <string>Username</string>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>13</pointsize>
-              </font>
-             </property>
-            </column>
-            <column>
-             <property name="text">
               <string>Password</string>
              </property>
              <property name="font">
@@ -95,6 +95,35 @@
               </font>
              </property>
             </column>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="DeleteUserBtn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>60</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(216, 0, 4);
+border-radius: 10px;
+padding: 0px 5px;</string>
+            </property>
+            <property name="text">
+             <string>Delete User</string>
+            </property>
            </widget>
           </item>
          </layout>
