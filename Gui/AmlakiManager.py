@@ -38,7 +38,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.ParkingCombo.addItem("Not selected")
         self.StoreCombo.addItem("Not selected")
         for x in DBConnection.execute(AdTable.select()).fetchall():
-            # if x[2] != self.username:
+            if x[2] != self.username:
                 self.AdList.addItem(x[0])
                 self.CityPartCombo.addItem(x[3])
                 self.MeterCombo.addItem(x[4])
@@ -75,7 +75,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
             ((Parking == None) or (AdTable.c.HasParking == Parking)),
             ((Store == None) or (AdTable.c.HasStoreroom == Store))
         )):
-            # if x[2]!=self.username:
+            if x[2]!=self.username:
                 self.AdList.addItem(x[0])
 
     def OpenAmlakiMgmt(self):

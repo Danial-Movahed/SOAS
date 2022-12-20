@@ -10,5 +10,9 @@ class FirstTimeSetup(QMainWindow, ui_FirstTimeSetup.Ui_MainWindow):
         self.FTSContinuebtn.clicked.connect(lambda: self.saveClose())
         self.show()
     def saveClose(self):
+        if self.FTSPassword.text() == "" or self.FTSUsername.text() == "":
+            self.errDlg = ErrorDialog("Please fill everything!", self)
+            self.errDlg.exec()
+            return
         self.State=True
         self.close()

@@ -20,9 +20,15 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
         self.show()
 
     def __DeleteUser(self):
-        print(self.UsersTable.item(self.UsersTable.currentRow(),0).text())
-        DBConnection.execute(UsersTable.delete().where(UsersTable.c.Username == self.UsersTable.item(self.UsersTable.currentRow(),0).text()))
-        self.__refresh()
+        if self.UsersTable.currentRow() == -1:
+            self.errDlg = ErrorDialog("Please select an user!", self)
+            self.errDlg.exec()
+            return
+        self.dlg = CDialog(
+            "Are you sure you want to delete this user?", "Question!", self)
+        if self.dlg.exec():
+            DBConnection.execute(UsersTable.delete().where(UsersTable.c.Username == self.UsersTable.item(self.UsersTable.currentRow(),0).text()))
+            self.__refresh()
 
     def __SaveUsers(self,row,column):
         if self.isRefreshing:
@@ -79,25 +85,33 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
         self.isRefreshing = False
 
     def __AcceptRequest(self):
-        DBConnection.execute(RequestTable.update().where(
-            RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
-            RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
-            RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
-            RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
-        ).values(Status = "Accepted!"))
-        DBConnection.execute(AdTable.update().where(
-            AdTable.c.Title == self.Requests.selectedItems()[0].text(0)
-        ).values(
-            isSold = True,
-            Owner = self.Requests.selectedItems()[0].text(1),
-            Title = DBConnection.execute(AdTable.select().where(AdTable.c.Title == self.Requests.selectedItems()[0].text(0))).fetchall()[0][0]+" Sold Out!"
-            ))
-        self.__refresh()
+        if len(self.Requests.selectedItems()) == 0:
+            self.errDlg = ErrorDialog("Please select a request!", self)
+            self.errDlg.exec()
+            return
+        self.dlg = CDialog(
+            "Are you sure you want to accept this request?", "Question!", self)
+        if self.dlg.exec():
+            DBConnection.execute(RequestTable.update().where(
+                RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
+                RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
+                RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
+                RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
+            ).values(Status = "Accepted!"))
+            DBConnection.execute(AdTable.update().where(
+                AdTable.c.Title == self.Requests.selectedItems()[0].text(0)
+            ).values(
+                isSold = True,
+                Owner = self.Requests.selectedItems()[0].text(1),
+                Title = DBConnection.execute(AdTable.select().where(AdTable.c.Title == self.Requests.selectedItems()[0].text(0))).fetchall()[0][0]+" Sold Out!"
+                ))
+            self.__refresh()
 
     def __ViewRequest(self):
         if len(self.Requests.selectedItems()) == 0:
             self.errDlg = ErrorDialog("Please select a request!", self)
             self.errDlg.exec()
+            return
         self.ViewReqWnd = ViewRequest.ViewRequest(DBConnection.execute(RequestTable.select().where(
             RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
             RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
@@ -106,26 +120,38 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
         )).fetchall()[0][6])
 
     def __DeclineRequest(self):
-        DBConnection.execute(RequestTable.delete().where(
-            RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
-            RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
-            RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
-            RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
-        ))
-        self.__refresh()
+        if len(self.Requests.selectedItems()) == 0:
+            self.errDlg = ErrorDialog("Please select a request!", self)
+            self.errDlg.exec()
+            return
+        self.dlg = CDialog(
+            "Are you sure you want to decline this request?", "Question!", self)
+        if self.dlg.exec():
+            DBConnection.execute(RequestTable.delete().where(
+                RequestTable.c.Title == self.Requests.selectedItems()[0].text(0),
+                RequestTable.c.Username == self.Requests.selectedItems()[0].text(1),
+                RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
+                RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
+            ))
+            self.__refresh()
 
     def __ViewAd(self):
         if len(self.AdList.selectedItems()) == 0:
             self.errDlg = ErrorDialog("Please select an ad!", self)
             self.errDlg.exec()
+            return
         self.ShowAdWnd = ShowAdAdmin.ShowAdAdmin(self.AdList.selectedItems()[0].text())
 
     def __DeleteAd(self):
         if len(self.AdList.selectedItems()) == 0:
             self.errDlg = ErrorDialog("Please select an ad!", self)
             self.errDlg.exec()
-        DBConnection.execute(AdTable.delete().where(
-            AdTable.c.Title == self.AdList.selectedItems()[0].text()
-        ))
-        DBConnection.execute(RequestTable.delete().where(RequestTable.c.Title == self.AdList.selectedItems()[0].text()))
-        self.__refresh()
+            return
+        self.dlg = CDialog(
+            "Are you sure you want to delete this ad?", "Question!", self)
+        if self.dlg.exec():
+            DBConnection.execute(AdTable.delete().where(
+                AdTable.c.Title == self.AdList.selectedItems()[0].text()
+            ))
+            DBConnection.execute(RequestTable.delete().where(RequestTable.c.Title == self.AdList.selectedItems()[0].text()))
+            self.__refresh()
