@@ -33,14 +33,12 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             RequestTable.c.Username == self.username)).fetchall()
 
         for i in self.requestsReceived:
-            if i[5] == "Accepted":
-                continue
             self.ReceivedRequests.addTopLevelItem(
-                QTreeWidgetItem([i[0], i[3], i[1], i[2], i[5]]))
+                QTreeWidgetItem([i[0], i[5], i[1], i[2], i[3], i[4]]))
 
         for i in self.requestsSent:
             self.SentRequests.addTopLevelItem(
-                QTreeWidgetItem([i[0], i[3], i[1], i[2], i[5]]))
+                QTreeWidgetItem([i[0], i[5], i[1], i[2], i[3], i[4]]))
 
     def __DeleteSentRequest(self):
         if len(self.SentRequests.selectedItems()) == 0:
@@ -55,6 +53,8 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
                 RequestTable.c.Username == self.SentRequests.selectedItems()[0].text(1),
                 RequestTable.c.Details == self.SentRequests.selectedItems()[0].text(2),
                 RequestTable.c.Price == self.SentRequests.selectedItems()[0].text(3),
+                RequestTable.c.MortPrice == self.SentRequests.selectedItems()[0].text(4),
+                RequestTable.c.RentPrice == self.SentRequests.selectedItems()[0].text(5),
             ))
             self.__refresh()
 
@@ -68,7 +68,9 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             RequestTable.c.Username == self.SentRequests.selectedItems()[0].text(1),
             RequestTable.c.Details == self.SentRequests.selectedItems()[0].text(2),
             RequestTable.c.Price == self.SentRequests.selectedItems()[0].text(3),
-        )).fetchall()[0][6])
+            RequestTable.c.MortPrice == self.SentRequests.selectedItems()[0].text(4),
+            RequestTable.c.RentPrice == self.SentRequests.selectedItems()[0].text(5),
+        )).fetchall()[0][7])
 
     def __ViewReceivedRequest(self):
         if len(self.ReceivedRequests.selectedItems()) == 0:
@@ -80,7 +82,9 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
             RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
             RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
-        )).fetchall()[0][6])
+            RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[0].text(4),
+            RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[0].text(5),
+        )).fetchall()[0][7])
 
     def __AcceptReceivedRequest(self):
         if len(self.ReceivedRequests.selectedItems()) == 0:
@@ -95,7 +99,9 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
                 RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
                 RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
                 RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
-            ).values(Status = "Waiting for admin"))
+                RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[0].text(4),
+                RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[0].text(5),
+            ).values(Owner = self.ReceivedRequests.selectedItems()[0].text(1)))
             self.__refresh()
 
     def __DeclineReceivedRequest(self):
@@ -111,5 +117,7 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
                 RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
                 RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
                 RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
+                RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[0].text(4),
+                RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[0].text(5),
             ))
             self.__refresh()

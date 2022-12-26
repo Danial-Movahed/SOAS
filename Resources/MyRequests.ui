@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>739</width>
+    <width>821</width>
     <height>716</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="SentTab">
        <attribute name="title">
@@ -73,12 +73,17 @@
             </column>
             <column>
              <property name="text">
-              <string>Price</string>
+              <string>Buy Price</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Status</string>
+              <string>Mortage Price</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Rent Price</string>
              </property>
             </column>
            </widget>
@@ -211,12 +216,17 @@ padding: 0px 5px;</string>
             </column>
             <column>
              <property name="text">
-              <string>Price</string>
+              <string>Buy Price</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Status</string>
+              <string>Mortage Price</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Rent Price</string>
              </property>
             </column>
            </widget>
@@ -334,7 +344,7 @@ padding: 0px 5px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>739</width>
+     <width>821</width>
      <height>30</height>
     </rect>
    </property>

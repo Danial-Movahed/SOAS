@@ -76,9 +76,10 @@ RequestTable = Table(
     Column("Title", String),
     Column("Details", String),
     Column("Price", String),
+    Column("MortPrice", String),
+    Column("RentPrice", String),
     Column("Username", String),
     Column("To", String),
-    Column("Status", String),
     Column("Id", String, primary_key=True)
 )
 meta.create_all(engine)
