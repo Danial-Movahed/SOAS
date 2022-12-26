@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Resources/RequestPrice.ui'
+# Form implementation generated from reading ui file 'Resources/RequestPriceRent.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -24,14 +24,14 @@ class Ui_Dialog(object):
         self.verticalLayout.addWidget(self.label)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.Price = QtWidgets.QDoubleSpinBox(Dialog)
+        self.MortSpin = QtWidgets.QDoubleSpinBox(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.Price.sizePolicy().hasHeightForWidth())
-        self.Price.setSizePolicy(sizePolicy)
-        self.Price.setObjectName("Price")
-        self.horizontalLayout.addWidget(self.Price)
+        sizePolicy.setHeightForWidth(self.MortSpin.sizePolicy().hasHeightForWidth())
+        self.MortSpin.setSizePolicy(sizePolicy)
+        self.MortSpin.setObjectName("MortSpin")
+        self.horizontalLayout.addWidget(self.MortSpin)
         self.label_3 = QtWidgets.QLabel(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -41,6 +41,12 @@ class Ui_Dialog(object):
         self.label_3.setObjectName("label_3")
         self.horizontalLayout.addWidget(self.label_3)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        self.label_4 = QtWidgets.QLabel(Dialog)
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout.addWidget(self.label_4)
+        self.RentSpin = QtWidgets.QDoubleSpinBox(Dialog)
+        self.RentSpin.setObjectName("RentSpin")
+        self.verticalLayout.addWidget(self.RentSpin)
         self.label_2 = QtWidgets.QLabel(Dialog)
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
@@ -69,6 +75,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label.setText(_translate("Dialog", "Enter your desired price:"))
-        self.label_3.setText(_translate("Dialog", "Billion"))
+        self.label.setText(_translate("Dialog", "Enter your desired mortgage price:"))
+        self.label_3.setText(_translate("Dialog", "Million"))
+        self.label_4.setText(_translate("Dialog", "Enter your desired rent price:"))
         self.label_2.setText(_translate("Dialog", "Enter any details:"))

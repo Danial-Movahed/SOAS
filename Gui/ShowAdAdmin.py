@@ -7,8 +7,8 @@ class ShowAdAdmin(QMainWindow, ui_ShowAdAdmin.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.title = title
-        self.Ad = DBConnection.execute(AdTable.select().where(
-            AdTable.c.Title == title)).fetchall()[0]
+        self.Ad = DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == title)).fetchall()[0]
         self.AdTitle.setText(self.Ad[0])
         self.AdMessage.setText(self.Ad[1])
         self.Writer.setText("Owned by: "+self.Ad[2])

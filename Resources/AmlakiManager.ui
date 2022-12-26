@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>673</height>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,7 +52,7 @@ border-radius: 10px;
 padding: 5px 10px;</string>
         </property>
         <property name="text">
-         <string>Salaam</string>
+         <string>SOAS</string>
         </property>
        </widget>
       </item>
@@ -79,7 +79,7 @@ padding: 5px 10px;</string>
          <string notr="true"/>
         </property>
         <property name="text">
-         <string>My ads</string>
+         <string>My houses</string>
         </property>
        </widget>
       </item>
@@ -373,7 +373,7 @@ border-radius:10px;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFIle">

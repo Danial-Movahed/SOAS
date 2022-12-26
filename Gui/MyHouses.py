@@ -1,0 +1,94 @@
+from .include import *
+from . import EditCreateHouse, ui_MyHouses, RequestPrice, RequestPriceRent
+
+
+class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
+    def __init__(self, username):
+        super().__init__()
+        self.setupUi(self)
+        self.username = username
+        self.AddHouse.clicked.connect(lambda: self.__AddHouse())
+        self.EditHouse.clicked.connect(lambda: self.__EditHouse())
+        self.DeleteHouse.clicked.connect(lambda: self.__DeleteHouse())
+        self.RentBtn.clicked.connect(lambda: self.__SetRent())
+        self.SaleBtn.clicked.connect(lambda: self.__SetSale())
+        self.RentBtn.setEnabled(False)
+        self.SaleBtn.setEnabled(False)
+        self.MyAdList.itemSelectionChanged.connect(self.__SetButton)
+        self.__refresh()
+        self.show()
+
+    def __SetButton(self):
+        if len(self.MyAdList.selectedItems()) == 0:
+            self.RentBtn.setEnabled(False)
+            self.SaleBtn.setEnabled(False)
+            return
+        if DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
+        )).fetchall()[0][10] == False:
+            self.RentBtn.setEnabled(False)
+            self.SaleBtn.setEnabled(False)
+            return
+        self.RentBtn.setEnabled(True)
+        self.SaleBtn.setEnabled(True)
+
+    def __SetRent(self):
+        tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
+        self.Dlg = RequestPriceRent.RequestPriceRent(tmp[13],tmp[14])
+        self.Dlg.Details.hide()
+        self.Dlg.label_2.hide()
+        self.Dlg.exec()
+        if self.Dlg.status:
+            DBConnection.execute(HouseTable.update().where(
+                HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
+            ).values(
+                MortPrice = float(self.Dlg.MortSpin.value()),
+                RentPrice = float(self.Dlg.RentSpin.value()),
+                isSale = True,
+                Mode = True
+            ))
+
+    def __SetSale(self):
+        self.Dlg = RequestPrice.RequestPrice(DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0][12])
+        self.Dlg.Details.hide()
+        self.Dlg.label_2.hide()
+        self.Dlg.exec()
+        if self.Dlg.status:
+            DBConnection.execute(HouseTable.update().where(
+                HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
+            ).values(
+                SellPrice = float(self.Dlg.Price.value()),
+                isSale = True,
+                Mode = False
+            ))
+
+    def __AddHouse(self):
+        self.NewAdWnd = EditCreateHouse.EditCreateHouse(self.username)
+        self.NewAdWnd.closeEvent = self.__refresh  # type: ignore
+
+    def __EditHouse(self):
+        if len(self.MyAdList.selectedItems()) == 0:
+            errdlg = ErrorDialog("Please select an ad!", self)
+            errdlg.exec()
+            return
+        self.EditAdWnd = EditCreateHouse.EditCreateHouse(
+            self.username, self.MyAdList.selectedItems()[0].text())
+        self.EditAdWnd.closeEvent = self.__refresh  # type: ignore
+
+    def __DeleteHouse(self):
+        if len(self.MyAdList.selectedItems()) == 0:
+            errdlg = ErrorDialog("Please select an ad!", self)
+            errdlg.exec()
+            return
+        self.dlg = CDialog(
+            "Are you sure you want to delete this ad?", "Question!", self)
+        if self.dlg.exec():
+            DBConnection.execute(HouseTable.delete().where(
+                HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()))
+            self.__refresh()
+
+    def __refresh(self, e=None):
+        self.MyAdList.clear()
+        for x in DBConnection.execute(HouseTable.select()).fetchall():
+            if x[2] == self.username:
+                self.MyAdList.addItem(x[0])

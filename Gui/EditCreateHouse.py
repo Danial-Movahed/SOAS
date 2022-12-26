@@ -1,8 +1,8 @@
 from .include import *
-from . import ui_EditCreateAd
+from . import ui_EditCreateHouse
 
 
-class EditCreateAd(QMainWindow, ui_EditCreateAd.Ui_MainWindow):
+class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
     def __init__(self,username,currentAd=None):
         super().__init__()
         self.setupUi(self)
@@ -16,7 +16,7 @@ class EditCreateAd(QMainWindow, ui_EditCreateAd.Ui_MainWindow):
         self.show()
 
     def __load(self):
-        currentAd = DBConnection.execute(AdTable.select().where(AdTable.c.Title == self.currentAdTitle)).fetchall()
+        currentAd = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.currentAdTitle)).fetchall()
         self.AdTitle.setText(currentAd[0][0])
         self.AdMessage.setText(currentAd[0][1])
         self.CityPartCombo.setCurrentText(currentAd[0][3])
@@ -42,7 +42,7 @@ class EditCreateAd(QMainWindow, ui_EditCreateAd.Ui_MainWindow):
             return
         if self.currentAdTitle != None:
             try:
-                DBConnection.execute(AdTable.update().where(AdTable.c.Title == self.oldTitle).values(
+                DBConnection.execute(HouseTable.update().where(HouseTable.c.Title == self.oldTitle).values(
                     Title = self.AdTitle.text(),
                     Message = self.AdMessage.toPlainText(),
                     CityPart = self.CityPartCombo.currentText(),
@@ -51,16 +51,18 @@ class EditCreateAd(QMainWindow, ui_EditCreateAd.Ui_MainWindow):
                     YearsOld = self.YearSpin.value(),
                     Floor = self.FloorSpin.value(),
                     HasParking = self.ParkingCombo.currentText(),
-                    HasStoreroom = self.StoreCombo.currentText()
+                    HasStoreroom = self.StoreCombo.currentText(),
+                    Mode = False,
+                    isSale = False
                 ))
                 self.close()
                 return
             except:
-                errDlg = ErrorDialog("This title is not chosen by another user, please use another title!")
+                errDlg = ErrorDialog("This title is chosen by another user, please use another title!")
                 errDlg.exec()
                 return
         try:
-            DBConnection.execute(AdTable.insert().values(
+            DBConnection.execute(HouseTable.insert().values(
                 Title = self.AdTitle.text(),
                 Message = self.AdMessage.toPlainText(),
                 Owner = self.username,
@@ -70,9 +72,11 @@ class EditCreateAd(QMainWindow, ui_EditCreateAd.Ui_MainWindow):
                 Room = str(self.RoomSpin.value()),
                 Meter = str(self.MeterSpin.value()),
                 HasParking = self.ParkingCombo.currentText(),
-                HasStoreroom = self.StoreCombo.currentText()
+                HasStoreroom = self.StoreCombo.currentText(),
+                Mode = False,
+                isSale = False
             ))
             self.close()
         except:
-            errDlg = ErrorDialog("This title is not chosen by another user, please use another title!")
+            errDlg = ErrorDialog("This title is chosen by another user, please use another title!")
             errDlg.exec()

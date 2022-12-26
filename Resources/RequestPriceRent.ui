@@ -30,14 +30,14 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Enter your desired price:</string>
+      <string>Enter your desired mortgage price:</string>
      </property>
     </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QDoubleSpinBox" name="Price">
+      <widget class="QDoubleSpinBox" name="MortSpin">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -55,11 +55,21 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Billion</string>
+        <string>Million</string>
        </property>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Enter your desired rent price:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDoubleSpinBox" name="RentSpin"/>
    </item>
    <item>
     <widget class="QLabel" name="label_2">

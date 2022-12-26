@@ -15,9 +15,22 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
         self.DeleteAdBtn.clicked.connect(lambda: self.__DeleteAd())
         self.DeleteUserBtn.clicked.connect(lambda: self.__DeleteUser())
         self.UsersTable.cellChanged.connect(self.__SaveUsers)
+        self.HousesTable.cellChanged.connect(self.__SaveHouses)
+        self.DeleteHouseBtn.clicked.connect(self.__DeleteHouse)
         self.isRefreshing=True
         self.__refresh()
         self.show()
+
+    def __DeleteHouse(self):
+        if self.HousesTable.currentRow() == -1:
+            self.errDlg = ErrorDialog("Please select a house!", self)
+            self.errDlg.exec()
+            return
+        self.dlg = CDialog(
+            "Are you sure you want to delete this house?", "Question!", self)
+        if self.dlg.exec():
+            DBConnection.execute(HouseTable.delete().where(HouseTable.c.Title == self.HouseTable.item(self.HouseTable.currentRow(),0).text()))
+            self.__refresh()
 
     def __DeleteUser(self):
         if self.UsersTable.currentRow() == -1:
@@ -38,6 +51,16 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
             isVerified = (self.UsersTable.item(row, 1).checkState() == Qt.Checked),
             isAdmin = (self.UsersTable.item(row, 2).checkState() == Qt.Checked),
             Password = self.UsersTable.item(row,3).text()
+        ))
+
+    def __SaveHouses(self,row,column):
+        if self.isRefreshing:
+            return
+        print("Updating house info!")
+        DBConnection.execute(HouseTable.update().where(HouseTable.c.Title == self.HouseTable.item(row, 0).text()).values(
+            isVerified = (self.HouseTable.item(row, 1).checkState() == Qt.Checked),
+            isSale = (self.HouseTable.item(row, 2).checkState() == Qt.Checked),
+            Mode = (self.HouseTable.item(row, 3).checkState() == Qt.Checked),
         ))
 
     def __refresh(self):
@@ -70,7 +93,7 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
             self.UsersTable.setItem(rowPosition , 3, QTableWidgetItem(u[1]))
         ################# Ads
         self.AdList.clear()
-        self.AdList.addItems([x[0] for x in DBConnection.execute(AdTable.select().where())])
+        self.AdList.addItems([x[0] for x in DBConnection.execute(HouseTable.select().where())])
         ################# Requests
         self.Requests.clear()
         for i in DBConnection.execute(
@@ -98,12 +121,12 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
                 RequestTable.c.Details == self.Requests.selectedItems()[0].text(2),
                 RequestTable.c.Price == self.Requests.selectedItems()[0].text(3),
             ).values(Status = "Accepted!"))
-            DBConnection.execute(AdTable.update().where(
-                AdTable.c.Title == self.Requests.selectedItems()[0].text(0)
+            DBConnection.execute(HouseTable.update().where(
+                HouseTable.c.Title == self.Requests.selectedItems()[0].text(0)
             ).values(
                 isSold = True,
                 Owner = self.Requests.selectedItems()[0].text(1),
-                Title = DBConnection.execute(AdTable.select().where(AdTable.c.Title == self.Requests.selectedItems()[0].text(0))).fetchall()[0][0]+" Sold Out!"
+                Title = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.Requests.selectedItems()[0].text(0))).fetchall()[0][0]+" Sold Out!"
                 ))
             self.__refresh()
 
@@ -150,8 +173,8 @@ class Management(ui_Management.Ui_MainWindow, QMainWindow):
         self.dlg = CDialog(
             "Are you sure you want to delete this ad?", "Question!", self)
         if self.dlg.exec():
-            DBConnection.execute(AdTable.delete().where(
-                AdTable.c.Title == self.AdList.selectedItems()[0].text()
+            DBConnection.execute(HouseTable.delete().where(
+                HouseTable.c.Title == self.AdList.selectedItems()[0].text()
             ))
             DBConnection.execute(RequestTable.delete().where(RequestTable.c.Title == self.AdList.selectedItems()[0].text()))
             self.__refresh()

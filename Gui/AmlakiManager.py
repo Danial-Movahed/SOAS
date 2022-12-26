@@ -1,5 +1,5 @@
 from .include import *
-from . import MyAds,MyRequests,ShowAd,ui_AmlakiManager
+from . import MyHouses,MyRequests,ShowAd,ui_AmlakiManager
 
 class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
     def __init__(self,username):
@@ -11,6 +11,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.MyReqs.clicked.connect(lambda: self.__MyReqs())
         self.AdList.itemDoubleClicked.connect(self.__ViewAd)
         self.username = username[0]
+        self.AmlakiMgmt.hide()
         self.refresh()
         self.show()
 
@@ -37,16 +38,15 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.FloorCombo.addItem("Not selected")
         self.ParkingCombo.addItem("Not selected")
         self.StoreCombo.addItem("Not selected")
-        for x in DBConnection.execute(AdTable.select()).fetchall():
-            if x[2] != self.username:
-                self.AdList.addItem(x[0])
-                self.CityPartCombo.addItem(x[3])
-                self.MeterCombo.addItem(x[4])
-                self.RoomCombo.addItem(x[5])
-                self.YearCombo.addItem(x[6])
-                self.FloorCombo.addItem(x[7])
-                self.ParkingCombo.addItem(x[8])
-                self.StoreCombo.addItem(x[9])
+        for x in DBConnection.execute(HouseTable.select().where(HouseTable.c.Owner != self.username, HouseTable.c.isVerified == True)).fetchall():
+            self.AdList.addItem(x[0])
+            self.CityPartCombo.addItem(x[3])
+            self.MeterCombo.addItem(x[4])
+            self.RoomCombo.addItem(x[5])
+            self.YearCombo.addItem(x[6])
+            self.FloorCombo.addItem(x[7])
+            self.ParkingCombo.addItem(x[8])
+            self.StoreCombo.addItem(x[9])
 
     def __FixReturn(self, s):
         if s == "Not selected":
@@ -54,7 +54,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         return s
     
     def __MyAds(self):
-        self.MyAdsWnd = MyAds.MyAds(self.username)
+        self.MyAdsWnd = MyHouses.MyHouses(self.username)
         self.MyAdsWnd.closeEvent = self.refresh
 
     def __Search(self):
@@ -66,17 +66,17 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         Meter = self.__FixReturn(self.MeterCombo.currentText())
         Parking = self.__FixReturn(self.ParkingCombo.currentText())
         Store = self.__FixReturn(self.StoreCombo.currentText())
-        for x in DBConnection.execute(AdTable.select().where(
-            ((Floor == None) or (AdTable.c.Floor == Floor)),
-            ((CityPart == None) or (AdTable.c.CityPart == CityPart)),
-            ((Year == None) or (AdTable.c.YearsOld == Year)),
-            ((Room == None) or (AdTable.c.Room == Room)),
-            ((Meter == None) or (AdTable.c.Meter == Meter)),
-            ((Parking == None) or (AdTable.c.HasParking == Parking)),
-            ((Store == None) or (AdTable.c.HasStoreroom == Store))
-        )):
-            if x[2]!=self.username:
-                self.AdList.addItem(x[0])
+        self.AdList.addItems([ x[0] for x in DBConnection.execute(HouseTable.select().where(
+            ((Floor == None) or (HouseTable.c.Floor == Floor)),
+            ((CityPart == None) or (HouseTable.c.CityPart == CityPart)),
+            ((Year == None) or (HouseTable.c.YearsOld == Year)),
+            ((Room == None) or (HouseTable.c.Room == Room)),
+            ((Meter == None) or (HouseTable.c.Meter == Meter)),
+            ((Parking == None) or (HouseTable.c.HasParking == Parking)),
+            ((Store == None) or (HouseTable.c.HasStoreroom == Store)),
+            HouseTable.c.isVerified == True,
+            HouseTable.c.Owner != self.username
+        ))])
 
     def OpenAmlakiMgmt(self):
         self.err = ErrorDialog(

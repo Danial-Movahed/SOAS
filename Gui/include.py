@@ -1,5 +1,5 @@
 from hashlib import blake2s
-from sqlalchemy import Column, Boolean, String, create_engine, MetaData, Table, Integer
+from sqlalchemy import Column, Boolean, String, create_engine, MetaData, Table, Integer, FLOAT
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -52,8 +52,8 @@ UsersTable = Table(
     Column('isAdmin', Boolean),
     Column('isVerified', Boolean),
 )
-AdTable = Table(
-    'Ads', meta, 
+HouseTable = Table(
+    'Houses', meta, 
     Column("Title", String, primary_key=True),
     Column("Message", String),
     Column("Owner", String),
@@ -64,7 +64,12 @@ AdTable = Table(
     Column("Floor", String),
     Column("HasParking", String),
     Column("HasStoreroom", String),
-    Column("isSold", Boolean)
+    Column("isVerified", Boolean),
+    Column("isSale", Boolean),
+    Column("Mode", Boolean),
+    Column("SellPrice", FLOAT),
+    Column("MortPrice", FLOAT),
+    Column("RentPrice", FLOAT)
 )
 RequestTable = Table(
     'Reqs', meta, 
