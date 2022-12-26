@@ -20,8 +20,73 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
         self.__refresh()
         self.show()
 
-    def __calcNice(self):
-        return 1.0
+    def __calcNiceSale(self):
+        tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
+        price=tmp[13]
+        meter=int(tmp[4])
+        room=int(tmp[5])
+        year=int(tmp[6])
+        floor=int(tmp[7])
+        parking=tmp[8]
+        store=tmp[9]
+        if tmp[3] == "North":
+            loc=4
+        elif tmp[3] == "West":
+            loc=3
+        elif tmp[3] == "East":
+            loc=2
+        elif tmp[3] == "South":
+            loc=1
+        if parking:
+            parking = 2
+        else:
+            parking = 1
+        if store:
+            store = 1.5
+        else:
+            store = 1
+        floor/=2
+        floor+=0.5
+        if year != 0:
+            nice = loc*room*parking*store*floor/(price/meter)*((year/5)+1)
+        else:
+            nice = loc*room*parking*store*floor*2/(price/meter)
+        print(nice)
+        return nice
+
+    def __calcNiceRent(self):
+        tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
+        price=tmp[13]
+        meter=int(tmp[4])
+        room=int(tmp[5])
+        year=int(tmp[6])
+        floor=int(tmp[7])
+        parking=tmp[8]
+        store=tmp[9]
+        if tmp[3] == "North":
+            loc=16
+        elif tmp[3] == "West":
+            loc=9
+        elif tmp[3] == "East":
+            loc=4
+        elif tmp[3] == "South":
+            loc=1
+        if parking:
+            parking = 2
+        else:
+            parking = 1
+        if store:
+            store = 1.5
+        else:
+            store = 1
+        floor/=2
+        floor+=0.5
+        price = (((tmp[15]*1000000)/30000)+tmp[14])*7.2/1000
+        if year != 0:
+            nice = loc*room*parking*store*floor/(price/meter)*((year/5)+1)
+        else:
+            nice = loc*room*parking*store*floor*2/(price/meter)
+        return nice
 
     def __DisableEv(self):
         self.dlg = CDialog(
@@ -90,7 +155,7 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
                 RentPrice=float(self.Dlg.RentSpin.value()),
                 isSale=True,
                 Mode=True,
-                Nice=self.__calcNice()
+                Nice=self.__calcNiceRent()
             ))
 
     def __SetSale(self):
@@ -106,7 +171,7 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
                 SellPrice=float(self.Dlg.Price.value()),
                 isSale=True,
                 Mode=False,
-                Nice=self.__calcNice()
+                Nice=self.__calcNiceSale()
             ))
 
     def __AddHouse(self):
