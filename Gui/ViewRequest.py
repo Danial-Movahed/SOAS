@@ -13,7 +13,7 @@ class ViewRequest(QMainWindow, ui_ViewRequest.Ui_MainWindow):
             self.Rent = False
         self.Title.setText("Request to "+self.Rent*"rent: "+abs(self.Rent-1)*"buy: "+self.Request[0])
         self.Details.setText(self.Request[1])
-        self.Writer.setText(self.Request[3]+" wants to "+self.Rent*"rent "+abs(self.Rent-1)*"buy "+"from "+self.Request[4]+"!")
+        self.Writer.setText(self.Request[5]+" wants to "+self.Rent*"rent "+abs(self.Rent-1)*"buy "+"from "+self.Request[6]+"!")
         if self.Request[2]==0:
             self.BuyBil.hide()
             self.BuyLab.hide()

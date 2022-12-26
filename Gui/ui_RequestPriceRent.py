@@ -30,6 +30,7 @@ class Ui_Dialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.MortSpin.sizePolicy().hasHeightForWidth())
         self.MortSpin.setSizePolicy(sizePolicy)
+        self.MortSpin.setMaximum(2000.99)
         self.MortSpin.setObjectName("MortSpin")
         self.horizontalLayout.addWidget(self.MortSpin)
         self.label_3 = QtWidgets.QLabel(Dialog)

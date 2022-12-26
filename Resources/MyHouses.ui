@@ -209,6 +209,35 @@ padding: 0px 5px;</string>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="DisableBtn">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(216, 0, 4);
+border-radius: 10px;
+padding: 0px 5px;</string>
+          </property>
+          <property name="text">
+           <string>Disable everything</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>

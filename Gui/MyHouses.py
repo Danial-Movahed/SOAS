@@ -12,25 +12,44 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
         self.DeleteHouse.clicked.connect(lambda: self.__DeleteHouse())
         self.RentBtn.clicked.connect(lambda: self.__SetRent())
         self.SaleBtn.clicked.connect(lambda: self.__SetSale())
+        self.DisableBtn.clicked.connect(lambda: self.__DisableEv())
         self.RentBtn.setEnabled(False)
         self.SaleBtn.setEnabled(False)
+        self.DisableBtn.setEnabled(False)
         self.MyAdList.itemSelectionChanged.connect(self.__SetButton)
         self.__refresh()
         self.show()
+
+    def __DisableEv(self):
+        self.dlg = CDialog(
+            "Are you sure you want to disable rent and sale for this house?", "Question!", self)
+        if self.dlg.exec():
+            DBConnection.execute(HouseTable.update().where(
+                HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
+            ).values(
+                isSale = False,
+                Mode = False,
+                SellPrice = 0,
+                MortPrice = 0,
+                RentPrice = 0
+            ))
 
     def __SetButton(self):
         if len(self.MyAdList.selectedItems()) == 0:
             self.RentBtn.setEnabled(False)
             self.SaleBtn.setEnabled(False)
+            self.DisableBtn.setEnabled(False)
             return
         if DBConnection.execute(HouseTable.select().where(
             HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
         )).fetchall()[0][10] == False:
             self.RentBtn.setEnabled(False)
             self.SaleBtn.setEnabled(False)
+            self.DisableBtn.setEnabled(False)
             return
         self.RentBtn.setEnabled(True)
         self.SaleBtn.setEnabled(True)
+        self.DisableBtn.setEnabled(True)
 
     def __SetRent(self):
         tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]

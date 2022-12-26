@@ -147,7 +147,7 @@ padding: 0px 5px;</string>
            <number>10</number>
           </property>
           <item>
-           <widget class="QTableWidget" name="HousesTable">
+           <widget class="QTableWidget" name="HouseTable">
             <column>
              <property name="text">
               <string>Title</string>

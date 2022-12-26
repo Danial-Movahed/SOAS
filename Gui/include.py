@@ -75,9 +75,9 @@ RequestTable = Table(
     'Reqs', meta, 
     Column("Title", String),
     Column("Details", String),
-    Column("Price", String),
-    Column("MortPrice", String),
-    Column("RentPrice", String),
+    Column("Price", FLOAT),
+    Column("MortPrice", FLOAT),
+    Column("RentPrice", FLOAT),
     Column("Username", String),
     Column("To", String),
     Column("Id", String, primary_key=True)

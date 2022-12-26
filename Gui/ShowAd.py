@@ -51,21 +51,20 @@ class ShowAd(QMainWindow, ui_ShowAd.Ui_MainWindow):
                     errDlg.exec()
             return
 
-        self.Dlg = RequestPrice.RequestPrice()
+        self.Dlg = RequestPrice.RequestPrice(self.House[12])
         self.Dlg.exec()
         if self.Dlg.status:
-            try:
+            # try:
                 DBConnection.execute(RequestTable.insert().values(
                     Title = self.title,
                     Details = self.Dlg.Details.toPlainText(),
-                    Price = self.Dlg.Price.text(),
+                    Price = self.Dlg.Price.value(),
                     MortPrice = 0,
                     RentPrice = 0,
                     Username = self.username,
                     To = self.House[2],
-                    Status = "Waiting",
                     Id = self.username+self.title
                 ))
-            except:
-                errDlg = ErrorDialog("You already have sent your request!")
-                errDlg.exec()
+            # except:
+            #     errDlg = ErrorDialog("You already have sent your request!")
+            #     errDlg.exec()

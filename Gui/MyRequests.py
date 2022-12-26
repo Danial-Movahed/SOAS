@@ -34,11 +34,11 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
 
         for i in self.requestsReceived:
             self.ReceivedRequests.addTopLevelItem(
-                QTreeWidgetItem([i[0], i[5], i[1], i[2], i[3], i[4]]))
+                QTreeWidgetItem([i[0], i[5], i[1], str(i[2]), str(i[3]), str(i[4])]))
 
         for i in self.requestsSent:
             self.SentRequests.addTopLevelItem(
-                QTreeWidgetItem([i[0], i[5], i[1], i[2], i[3], i[4]]))
+                QTreeWidgetItem([i[0], i[5], i[1], str(i[2]), str(i[3]), str(i[4])]))
 
     def __DeleteSentRequest(self):
         if len(self.SentRequests.selectedItems()) == 0:
@@ -94,14 +94,24 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
         self.dlg = CDialog(
             "Are you sure you want to accept this request?", "Question!", self)
         if self.dlg.exec():
-            DBConnection.execute(RequestTable.update().where(
+            DBConnection.execute(HouseTable.update().where(
+                HouseTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
+            ).values(
+                Owner = self.ReceivedRequests.selectedItems()[0].text(1),
+                isSale = False,
+                Mode = False,
+                SellPrice = 0,
+                MortPrice = 0,
+                RentPrice = 0
+            ))
+            DBConnection.execute(RequestTable.delete().where(
                 RequestTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
                 RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
                 RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
                 RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
                 RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[0].text(4),
                 RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[0].text(5),
-            ).values(Owner = self.ReceivedRequests.selectedItems()[0].text(1)))
+            ))
             self.__refresh()
 
     def __DeclineReceivedRequest(self):

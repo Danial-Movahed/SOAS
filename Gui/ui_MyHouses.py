@@ -117,6 +117,21 @@ class Ui_MainWindow(object):
 "padding: 0px 5px;")
         self.RentBtn.setObjectName("RentBtn")
         self.horizontalLayout_2.addWidget(self.RentBtn)
+        self.DisableBtn = QtWidgets.QPushButton(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.DisableBtn.sizePolicy().hasHeightForWidth())
+        self.DisableBtn.setSizePolicy(sizePolicy)
+        self.DisableBtn.setMaximumSize(QtCore.QSize(16777215, 50))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.DisableBtn.setFont(font)
+        self.DisableBtn.setStyleSheet("background-color: rgb(216, 0, 4);\n"
+"border-radius: 10px;\n"
+"padding: 0px 5px;")
+        self.DisableBtn.setObjectName("DisableBtn")
+        self.horizontalLayout_2.addWidget(self.DisableBtn)
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
         self.verticalLayout_3.addLayout(self.verticalLayout_2)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -141,5 +156,6 @@ class Ui_MainWindow(object):
         self.DeleteHouse.setText(_translate("MainWindow", "Delete House"))
         self.SaleBtn.setText(_translate("MainWindow", "Set for sale"))
         self.RentBtn.setText(_translate("MainWindow", "Set for rent"))
+        self.DisableBtn.setText(_translate("MainWindow", "Disable everything"))
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
 from . import bg_rc

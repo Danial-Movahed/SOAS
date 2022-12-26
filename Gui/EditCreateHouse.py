@@ -52,6 +52,7 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
                     Floor = self.FloorSpin.value(),
                     HasParking = self.ParkingCombo.currentText(),
                     HasStoreroom = self.StoreCombo.currentText(),
+                    isVerified = False,
                     Mode = False,
                     isSale = False
                 ))
@@ -73,6 +74,7 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
                 Meter = str(self.MeterSpin.value()),
                 HasParking = self.ParkingCombo.currentText(),
                 HasStoreroom = self.StoreCombo.currentText(),
+                isVerified = False,
                 Mode = False,
                 isSale = False
             ))

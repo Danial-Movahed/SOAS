@@ -7,9 +7,9 @@ class RequestPriceRent(QDialog, ui_RequestPriceRent.Ui_Dialog):
         self.setupUi(self)
         self.status = False
         if stMort != None:
-            self.MortSpin.setValue(stPrice)
+            self.MortSpin.setValue(stMort)
         if stRent != None:
-            self.RentSpin.setValue(stPrice)
+            self.RentSpin.setValue(stRent)
         self.buttonBox.buttons()[0].clicked.connect(lambda: self.__Ok())
         self.show()
 
