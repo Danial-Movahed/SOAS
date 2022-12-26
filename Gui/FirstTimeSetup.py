@@ -14,5 +14,9 @@ class FirstTimeSetup(QMainWindow, ui_FirstTimeSetup.Ui_MainWindow):
             self.errDlg = ErrorDialog("Please fill everything!", self)
             self.errDlg.exec()
             return
+        if " " in self.FTSUsername.text():
+            self.errDlg = ErrorDialog("Username cannot contain spaces!", self)
+            self.errDlg.exec()
+            return
         self.State=True
         self.close()

@@ -69,7 +69,9 @@ HouseTable = Table(
     Column("Mode", Boolean),
     Column("SellPrice", FLOAT),
     Column("MortPrice", FLOAT),
-    Column("RentPrice", FLOAT)
+    Column("RentPrice", FLOAT),
+    Column("CanSell", Boolean),
+    Column("LOwn", String)
 )
 RequestTable = Table(
     'Reqs', meta, 

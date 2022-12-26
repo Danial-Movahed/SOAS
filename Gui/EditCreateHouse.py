@@ -54,7 +54,8 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
                     HasStoreroom = self.StoreCombo.currentText(),
                     isVerified = False,
                     Mode = False,
-                    isSale = False
+                    isSale = False,
+                    CanSell = True
                 ))
                 self.close()
                 return
@@ -76,7 +77,8 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
                 HasStoreroom = self.StoreCombo.currentText(),
                 isVerified = False,
                 Mode = False,
-                isSale = False
+                isSale = False,
+                CanSell = True
             ))
             self.close()
         except:

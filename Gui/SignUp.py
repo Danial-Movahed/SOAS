@@ -14,5 +14,9 @@ class SignUp(QMainWindow, ui_SignUp.Ui_MainWindow):
             err = ErrorDialog("Password does not match!")
             err.exec()
             return
+        if " " in self.SignUpUsername.text():
+            self.errDlg = ErrorDialog("Username cannot contain spaces!", self)
+            self.errDlg.exec()
+            return
         self.State = True
         self.close()

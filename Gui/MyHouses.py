@@ -24,15 +24,27 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
         self.dlg = CDialog(
             "Are you sure you want to disable rent and sale for this house?", "Question!", self)
         if self.dlg.exec():
+            tmp = DBConnection.execute(HouseTable.select().where(
+                HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
+            )).fetchall()[0]
+            if not tmp[16]:
+                DBConnection.execute(HouseTable.update().where(
+                HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
+                ).values(
+                    CanSell = True,
+                    Owner = tmp[17],
+                    LOwn = None
+                ))
             DBConnection.execute(HouseTable.update().where(
                 HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
             ).values(
-                isSale = False,
-                Mode = False,
-                SellPrice = 0,
-                MortPrice = 0,
-                RentPrice = 0
+                isSale=False,
+                Mode=False,
+                SellPrice=0,
+                MortPrice=0,
+                RentPrice=0
             ))
+            self.__refresh()
 
     def __SetButton(self):
         if len(self.MyAdList.selectedItems()) == 0:
@@ -40,20 +52,30 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             self.SaleBtn.setEnabled(False)
             self.DisableBtn.setEnabled(False)
             return
-        if DBConnection.execute(HouseTable.select().where(
-            HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
-        )).fetchall()[0][10] == False:
+        tmp = DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == self.MyAdList.selectedItems()[0].text(),
+        )).fetchall()[0]
+
+        if not tmp[10]:
             self.RentBtn.setEnabled(False)
             self.SaleBtn.setEnabled(False)
             self.DisableBtn.setEnabled(False)
             return
+
+        if not tmp[16]:
+            self.RentBtn.setEnabled(False)
+            self.SaleBtn.setEnabled(False)
+            self.DisableBtn.setEnabled(True)
+            return
+
         self.RentBtn.setEnabled(True)
         self.SaleBtn.setEnabled(True)
         self.DisableBtn.setEnabled(True)
 
     def __SetRent(self):
-        tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
-        self.Dlg = RequestPriceRent.RequestPriceRent(tmp[13],tmp[14])
+        tmp = DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
+        self.Dlg = RequestPriceRent.RequestPriceRent(tmp[13], tmp[14])
         self.Dlg.Details.hide()
         self.Dlg.label_2.hide()
         self.Dlg.exec()
@@ -61,14 +83,15 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             DBConnection.execute(HouseTable.update().where(
                 HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
             ).values(
-                MortPrice = float(self.Dlg.MortSpin.value()),
-                RentPrice = float(self.Dlg.RentSpin.value()),
-                isSale = True,
-                Mode = True
+                MortPrice=float(self.Dlg.MortSpin.value()),
+                RentPrice=float(self.Dlg.RentSpin.value()),
+                isSale=True,
+                Mode=True
             ))
 
     def __SetSale(self):
-        self.Dlg = RequestPrice.RequestPrice(DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0][12])
+        self.Dlg = RequestPrice.RequestPrice(DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0][12])
         self.Dlg.Details.hide()
         self.Dlg.label_2.hide()
         self.Dlg.exec()
@@ -76,9 +99,9 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             DBConnection.execute(HouseTable.update().where(
                 HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
             ).values(
-                SellPrice = float(self.Dlg.Price.value()),
-                isSale = True,
-                Mode = False
+                SellPrice=float(self.Dlg.Price.value()),
+                isSale=True,
+                Mode=False
             ))
 
     def __AddHouse(self):
@@ -109,5 +132,5 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
     def __refresh(self, e=None):
         self.MyAdList.clear()
         for x in DBConnection.execute(HouseTable.select()).fetchall():
-            if x[2] == self.username:
+            if x[2] == self.username or x[17] == self.username:
                 self.MyAdList.addItem(x[0])

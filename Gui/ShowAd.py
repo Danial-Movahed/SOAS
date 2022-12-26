@@ -43,7 +43,6 @@ class ShowAd(QMainWindow, ui_ShowAd.Ui_MainWindow):
                         Price = 0,
                         Username = self.username,
                         To = self.House[2],
-                        Status = "Waiting",
                         Id = self.username+self.title
                     ))
                 except:

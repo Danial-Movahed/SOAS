@@ -102,15 +102,12 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
                 Mode = False,
                 SellPrice = 0,
                 MortPrice = 0,
-                RentPrice = 0
+                RentPrice = 0,
+                CanSell = not DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0))).fetchall()[0][12],
+                LOwn = self.username
             ))
             DBConnection.execute(RequestTable.delete().where(
                 RequestTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
-                RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
-                RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
-                RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
-                RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[0].text(4),
-                RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[0].text(5),
             ))
             self.__refresh()
 
