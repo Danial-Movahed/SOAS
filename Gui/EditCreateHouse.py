@@ -55,7 +55,8 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
                     isVerified = False,
                     Mode = False,
                     isSale = False,
-                    CanSell = True
+                    CanSell = True,
+                    Nice = 0
                 ))
                 self.close()
                 return
@@ -78,9 +79,11 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
                 isVerified = False,
                 Mode = False,
                 isSale = False,
-                CanSell = True
+                CanSell = True,
+                Nice = 0
             ))
             self.close()
         except:
             errDlg = ErrorDialog("This title is chosen by another user, please use another title!")
             errDlg.exec()
+            

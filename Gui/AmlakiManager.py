@@ -38,7 +38,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.FloorCombo.addItem("Not selected")
         self.ParkingCombo.addItem("Not selected")
         self.StoreCombo.addItem("Not selected")
-        for x in DBConnection.execute(HouseTable.select().where(HouseTable.c.Owner != self.username, HouseTable.c.isVerified == True, HouseTable.c.isSale == True)).fetchall():
+        for x in DBConnection.execute(HouseTable.select().where(HouseTable.c.Owner != self.username, HouseTable.c.isVerified == True, HouseTable.c.isSale == True).order_by(HouseTable.c.Nice.desc())).fetchall():
             self.AdList.addItem(x[0])
             self.CityPartCombo.addItem(x[3])
             self.MeterCombo.addItem(x[4])
@@ -77,7 +77,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
             HouseTable.c.isVerified == True,
             HouseTable.c.Owner != self.username,
             HouseTable.c.isSale == True
-        ))])
+        ).order_by(HouseTable.c.Nice.desc()))])
 
     def OpenAmlakiMgmt(self):
         self.err = ErrorDialog(

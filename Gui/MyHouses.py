@@ -20,6 +20,9 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
         self.__refresh()
         self.show()
 
+    def __calcNice(self):
+        return 1.0
+
     def __DisableEv(self):
         self.dlg = CDialog(
             "Are you sure you want to disable rent and sale for this house?", "Question!", self)
@@ -86,7 +89,8 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
                 MortPrice=float(self.Dlg.MortSpin.value()),
                 RentPrice=float(self.Dlg.RentSpin.value()),
                 isSale=True,
-                Mode=True
+                Mode=True,
+                Nice=self.__calcNice()
             ))
 
     def __SetSale(self):
@@ -101,7 +105,8 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             ).values(
                 SellPrice=float(self.Dlg.Price.value()),
                 isSale=True,
-                Mode=False
+                Mode=False,
+                Nice=self.__calcNice()
             ))
 
     def __AddHouse(self):
