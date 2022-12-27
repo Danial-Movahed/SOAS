@@ -9,11 +9,26 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.MyAds.clicked.connect(lambda: self.__MyAds())
         self.SearchBtn.clicked.connect(lambda: self.__Search())
         self.MyReqs.clicked.connect(lambda: self.__MyReqs())
+        self.MinBuySlider.valueChanged.connect(lambda: self.__ShowSliderValue())
+        self.MaxBuySlider.valueChanged.connect(lambda: self.__ShowSliderValue())
+        self.MinMortSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
+        self.MaxMortSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
+        self.MinRentSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
+        self.MaxRentSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
         self.AdList.itemDoubleClicked.connect(self.__ViewAd)
         self.username = username[0]
         self.AmlakiMgmt.hide()
+        self.__ShowSliderValue()
         self.refresh()
         self.show()
+
+    def __ShowSliderValue(self):
+        self.MinBuyLabel.setText("Minimum Buying Price: "+str(self.MinBuySlider.value()/1000)+"B")
+        self.MaxBuyLabel.setText("Maximum Buying Price: "+str(self.MaxBuySlider.value()/1000)+"B")
+        self.MinMortLabel.setText("Minimum Mortgage Price: "+str(self.MinMortSlider.value())+"M")
+        self.MaxMortLabel.setText("Maximum Mortgage Price: "+str(self.MaxMortSlider.value())+"M")
+        self.MinRentLabel.setText("Minimum Rent Price: "+str(self.MinRentSlider.value())+"M")
+        self.MaxRentLabel.setText("Maximum Rent Price: "+str(self.MaxRentSlider.value())+"M")
 
     def __ViewAd(self,item):
         self.ShowAdWnd = ShowAd.ShowAd(item.text(),self.username)
@@ -66,6 +81,11 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         Meter = self.__FixReturn(self.MeterCombo.currentText())
         Parking = self.__FixReturn(self.ParkingCombo.currentText())
         Store = self.__FixReturn(self.StoreCombo.currentText())
+        Mode = self.__FixReturn(self.ModeCombo.currentText())
+        if Mode == "Rent":
+            Mode = True
+        elif Mode == "Buy":
+            Mode = False
         self.AdList.addItems([ x[0] for x in DBConnection.execute(HouseTable.select().where(
             ((Floor == None) or (HouseTable.c.Floor == Floor)),
             ((CityPart == None) or (HouseTable.c.CityPart == CityPart)),
@@ -74,9 +94,16 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
             ((Meter == None) or (HouseTable.c.Meter == Meter)),
             ((Parking == None) or (HouseTable.c.HasParking == Parking)),
             ((Store == None) or (HouseTable.c.HasStoreroom == Store)),
+            ((Mode == None) or (HouseTable.c.Mode == Mode)),
             HouseTable.c.isVerified == True,
             HouseTable.c.Owner != self.username,
-            HouseTable.c.isSale == True
+            HouseTable.c.isSale == True,
+            HouseTable.c.SellPrice >= self.MinBuySlider.value()/1000,
+            HouseTable.c.SellPrice <= self.MaxBuySlider.value()/1000,
+            HouseTable.c.MortPrice >= self.MinMortSlider.value(),
+            HouseTable.c.MortPrice <= self.MaxMortSlider.value(),
+            HouseTable.c.RentPrice >= self.MinRentSlider.value(),
+            HouseTable.c.RentPrice <= self.MaxRentSlider.value()
         ).order_by(HouseTable.c.Nice.desc()))])
 
     def OpenAmlakiMgmt(self):

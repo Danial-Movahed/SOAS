@@ -24,9 +24,19 @@ class ShowAd(QMainWindow, ui_ShowAd.Ui_MainWindow):
         if self.House[12]:
             self.Writer.setText("For Rent!\n"+self.Writer.text())
             self.RequestBtn.setText("Rent!")
+            self.SellPrice.hide()
+            self.SellLabel.hide()
+            self.MortPrice.setValue(self.House[14])
+            self.RentPrice.setValue(self.House[15])
         else:
             self.Writer.setText("For Sale!\n"+self.Writer.text())
             self.RequestBtn.setText("Buy!")
+            self.MortPrice.hide()
+            self.MortLabel.hide()
+            self.RentPrice.hide()
+            self.RentLabel.hide()
+            self.SellPrice.setValue(self.House[13])
+        
         self.show()
 
     def __Request(self):

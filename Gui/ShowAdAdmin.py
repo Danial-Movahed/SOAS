@@ -19,6 +19,18 @@ class ShowAdAdmin(QMainWindow, ui_ShowAdAdmin.Ui_MainWindow):
         self.RoomSpin.setValue(int(self.Ad[5]))
         self.YearSpin.setValue(int(self.Ad[6]))
         self.FloorSpin.setValue(int(self.Ad[7]))
+        if self.Ad[12]:
+            self.SellPrice.hide()
+            self.SellLabel.hide()
+            self.MortPrice.setValue(self.Ad[14])
+            self.RentPrice.setValue(self.Ad[15])
+        else:
+            self.MortPrice.hide()
+            self.MortLabel.hide()
+            self.RentPrice.hide()
+            self.RentLabel.hide()
+            self.SellPrice.setValue(self.Ad[13])
+        
         if self.Ad[10]:
             self.CloseBtn.setEnabled(False)
             self.RequestBtn.setEnabled(False)

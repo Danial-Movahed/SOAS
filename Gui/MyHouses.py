@@ -153,6 +153,7 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             ).values(
                 MortPrice=float(self.Dlg.MortSpin.value()),
                 RentPrice=float(self.Dlg.RentSpin.value()),
+                SellPrice=0,
                 isSale=True,
                 Mode=True,
                 Nice=self.__calcNiceRent()
@@ -169,6 +170,8 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
                 HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
             ).values(
                 SellPrice=float(self.Dlg.Price.value()),
+                MortPrice=0,
+                RentPrice=0,
                 isSale=True,
                 Mode=False,
                 Nice=self.__calcNiceSale()
