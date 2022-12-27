@@ -9,12 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1044</width>
+    <width>1047</width>
     <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SOAS Show House</string>
+   <string>Show House - SOAS</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -348,7 +348,7 @@ padding: 0px 5px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1044</width>
+     <width>1047</width>
      <height>30</height>
     </rect>
    </property>

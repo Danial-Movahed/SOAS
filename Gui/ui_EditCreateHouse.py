@@ -167,7 +167,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Edit Or Add House - SOAS"))
         self.AdTitle.setPlaceholderText(_translate("MainWindow", "Ad title"))
         self.AdMessage.setPlaceholderText(_translate("MainWindow", "Ad message"))
         self.label_7.setText(_translate("MainWindow", "Has store room?"))

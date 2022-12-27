@@ -354,7 +354,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Manager - SOAS"))
         self.UsernameLabel.setText(_translate("MainWindow", "SOAS"))
         self.MyReqs.setText(_translate("MainWindow", "My requests"))
         self.MyAds.setText(_translate("MainWindow", "My houses"))

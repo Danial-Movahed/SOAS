@@ -160,7 +160,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "My Requests - SOAS"))
         self.SentRequests.headerItem().setText(0, _translate("MainWindow", "Title"))
         self.SentRequests.headerItem().setText(1, _translate("MainWindow", "Name"))
         self.SentRequests.headerItem().setText(2, _translate("MainWindow", "Details"))

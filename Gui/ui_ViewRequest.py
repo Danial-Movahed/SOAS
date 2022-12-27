@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "View Request - SOAS"))
         self.Title.setText(_translate("MainWindow", "Title"))
         self.BuyLab.setText(_translate("MainWindow", "Buy Price"))
         self.BuyBil.setText(_translate("MainWindow", "Billion"))

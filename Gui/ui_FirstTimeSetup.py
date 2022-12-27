@@ -127,7 +127,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "First Time Setup - SOAS"))
         self.FTSLabel.setText(_translate("MainWindow", "First time setup!\n"
 "Enter admin username and password!"))
         self.FTSUsername.setPlaceholderText(_translate("MainWindow", "Username:"))

@@ -15,7 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1044, 613)
+        MainWindow.resize(1047, 613)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -199,7 +199,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addLayout(self.verticalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1044, 30))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1047, 30))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -211,7 +211,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "SOAS Show House"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Show House - SOAS"))
         self.AdTitle.setText(_translate("MainWindow", "Title"))
         self.label_6.setText(_translate("MainWindow", "Have Store Room?"))
         self.label_7.setText(_translate("MainWindow", "Have Parking?"))
