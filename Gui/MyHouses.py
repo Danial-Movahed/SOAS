@@ -22,7 +22,7 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
 
     def __calcNiceSale(self):
         tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
-        price=tmp[13]
+        price=float(self.Dlg.Price.value())
         meter=int(tmp[4])
         room=int(tmp[5])
         year=int(tmp[6])
@@ -51,12 +51,10 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             nice = loc*room*parking*store*floor/(price/meter)*((year/5)+1)
         else:
             nice = loc*room*parking*store*floor*2/(price/meter)
-        print(nice)
         return nice
 
     def __calcNiceRent(self):
         tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
-        price=tmp[13]
         meter=int(tmp[4])
         room=int(tmp[5])
         year=int(tmp[6])
@@ -81,7 +79,7 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             store = 1
         floor/=2
         floor+=0.5
-        price = (((tmp[15]*1000000)/30000)+tmp[14])*7.2/1000
+        price = (((float(self.Dlg.RentSpin.value())*1000000)/30000)+float(self.Dlg.MortSpin.value()))*7.2/1000
         if year != 0:
             nice = loc*room*parking*store*floor/(price/meter)*((year/5)+1)
         else:
