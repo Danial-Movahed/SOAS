@@ -43,7 +43,7 @@ class ErrorDialog(QDialog):
         self.setLayout(self.layout)
 
 
-engine = create_engine('sqlite:///Database.db', echo = False)
+engine = create_engine('sqlite:///Database.db?charset=utf8', echo = False)
 meta = MetaData()
 UsersTable = Table(
     'Users', meta, 
