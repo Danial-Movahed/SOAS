@@ -37,9 +37,8 @@ RequestTable = Table(
     Column("Status", String),
     Column("Id", String, primary_key=True)
 )
-
 # Show ER model from here
-filename = 'mymodel.png'
+filename = 'ERD.png'
 render_er(meta, filename)
 imgplot = plt.imshow(mpimg.imread(filename))
 plt.rcParams["figure.figsize"] = (15,10)
