@@ -21,3 +21,9 @@ This version uses sqlalchemy for saving data to a sqlite database from python. (
 
 ## Why admin should accept the request?
 Because there is no way to find if the ad actually belongs to the user and is not fake, so admin is going to verify the integrity of the request and the ad and if everything is ok, admin will accept the request and the ad owner will be changed.
+
+## Admin
+For the first time opening the application, the "First time setup" windows is going to open and it will ask for the admin's credentials. After the first time setup is done, login window will open each time SOAS opens.
+
+## Users
+In login window, there is a signup button which will open the signup window and ask user for the details. Each user is not verified when first created and needs to be verified by an admin before user can login to SOAS.
