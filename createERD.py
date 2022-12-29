@@ -3,7 +3,7 @@ import matplotlib.image as mpimg
 import pandas as pd
 from eralchemy2 import render_er
 
-from sqlalchemy import (MetaData, Table, Column, Integer, String, Boolean, ForeignKey)    
+from sqlalchemy import (MetaData, Table, Column, Integer, String, Boolean, ForeignKey, FLOAT)
 
 meta = MetaData()
 UsersTable = Table(
@@ -13,8 +13,8 @@ UsersTable = Table(
     Column('isAdmin', Boolean),
     Column('isVerified', Boolean),
 )
-AdTable = Table(
-    'Ads', meta, 
+HouseTable = Table(
+    'Houses', meta, 
     Column("Title", String, primary_key=True),
     Column("Message", String),
     Column("Owner", String),
@@ -25,21 +25,30 @@ AdTable = Table(
     Column("Floor", String),
     Column("HasParking", String),
     Column("HasStoreroom", String),
-    Column("isSold", Boolean)
+    Column("isVerified", Boolean),
+    Column("isSale", Boolean),
+    Column("Mode", Boolean),
+    Column("SellPrice", FLOAT),
+    Column("MortPrice", FLOAT),
+    Column("RentPrice", FLOAT),
+    Column("CanSell", Boolean),
+    Column("LOwn", String),
+    Column("Nice", FLOAT)
 )
 RequestTable = Table(
     'Reqs', meta, 
     Column("Title", String),
     Column("Details", String),
-    Column("Price", String),
+    Column("Price", FLOAT),
+    Column("MortPrice", FLOAT),
+    Column("RentPrice", FLOAT),
     Column("Username", String),
     Column("To", String),
-    Column("Status", String),
     Column("Id", String, primary_key=True)
 )
 
 # Show ER model from here
-filename = 'mymodel.png'
+filename = 'ERD.png'
 render_er(meta, filename)
 imgplot = plt.imshow(mpimg.imread(filename))
 plt.rcParams["figure.figsize"] = (15,10)
