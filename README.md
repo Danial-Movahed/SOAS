@@ -27,3 +27,7 @@ For the first time opening the application, the "First time setup" windows is go
 
 ## Users
 In login window, there is a signup button which will open the signup window and ask user for the details. Each user is not verified when first created and needs to be verified by an admin before user can login to SOAS.
+
+## Saving data
+This version uses sqlalchemy for saving data to a sqlite database from python. (See [wiki](https://github.com/Danial-Movahed/SOAS/wiki) for more information)
+
