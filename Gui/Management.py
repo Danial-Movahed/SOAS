@@ -1,4 +1,3 @@
-from matplotlib import use
 from .include import *
 from . import ui_Management,ShowAdAdmin,ViewRequest
 
