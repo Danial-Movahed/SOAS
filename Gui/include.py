@@ -10,6 +10,7 @@ import threading
 import select
 import pickle
 
+
 class CDialog(QDialog):
     def __init__(self, label, Title, parent=None):
         super().__init__(parent)
@@ -25,6 +26,7 @@ class CDialog(QDialog):
         self.layout.addWidget(message)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
+
 
 class ErrorDialog(QDialog):
     def __init__(self, label, parent=None):
@@ -43,17 +45,17 @@ class ErrorDialog(QDialog):
         self.setLayout(self.layout)
 
 
-engine = create_engine('sqlite:///Database.db?charset=utf8', echo = False)
+engine = create_engine('sqlite:///Database.db?charset=utf8', echo=False)
 meta = MetaData()
 UsersTable = Table(
-    'Users', meta, 
-    Column('Username', String, primary_key=True), 
+    'Users', meta,
+    Column('Username', String, primary_key=True),
     Column('Password', String),
     Column('isAdmin', Boolean),
     Column('isVerified', Boolean),
 )
 HouseTable = Table(
-    'Houses', meta, 
+    'Houses', meta,
     Column("Title", String, primary_key=True),
     Column("Message", String),
     Column("Owner", String),
@@ -75,7 +77,7 @@ HouseTable = Table(
     Column("Nice", FLOAT)
 )
 RequestTable = Table(
-    'Reqs', meta, 
+    'Reqs', meta,
     Column("Title", String),
     Column("Details", String),
     Column("Price", FLOAT),

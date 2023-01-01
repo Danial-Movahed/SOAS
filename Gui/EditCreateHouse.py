@@ -3,7 +3,7 @@ from . import ui_EditCreateHouse
 
 
 class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
-    def __init__(self,username,currentAd=None):
+    def __init__(self, username, currentAd=None):
         super().__init__()
         self.setupUi(self)
         self.username = username
@@ -16,7 +16,8 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
         self.show()
 
     def __load(self):
-        currentAd = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.currentAdTitle)).fetchall()
+        currentAd = DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == self.currentAdTitle)).fetchall()
         self.AdTitle.setText(currentAd[0][0])
         self.AdMessage.setText(currentAd[0][1])
         self.CityPartCombo.setCurrentText(currentAd[0][3])
@@ -30,60 +31,62 @@ class EditCreateHouse(QMainWindow, ui_EditCreateHouse.Ui_MainWindow):
     def __check(self):
         if self.AdTitle.text() == "" or self.AdMessage.toPlainText() == "":
             return False
-        if  self.CityPartCombo.currentText() == "Not selected" or self.ParkingCombo.currentText() == "Not selected" or self.StoreCombo.currentText() == "Not selected":
+        if self.CityPartCombo.currentText() == "Not selected" or self.ParkingCombo.currentText() == "Not selected" or self.StoreCombo.currentText() == "Not selected":
             return False
-        if self.RoomSpin.value() == 0 or self.MeterSpin.value() == 0  or self.FloorSpin.value() == 0 or self.YearSpin.value() == 0:
+        if self.RoomSpin.value() == 0 or self.MeterSpin.value() == 0 or self.FloorSpin.value() == 0 or self.YearSpin.value() == 0:
             return False
         return True
+
     def __save(self):
         if not self.__check():
-            errDlg = ErrorDialog("Please fill all the fields!",self,)
+            errDlg = ErrorDialog("Please fill all the fields!", self,)
             errDlg.exec()
             return
         if self.currentAdTitle != None:
             try:
                 DBConnection.execute(HouseTable.update().where(HouseTable.c.Title == self.oldTitle).values(
-                    Title = self.AdTitle.text(),
-                    Message = self.AdMessage.toPlainText(),
-                    CityPart = self.CityPartCombo.currentText(),
-                    Meter = self.MeterSpin.value(),
-                    Room = self.RoomSpin.value(),
-                    YearsOld = self.YearSpin.value(),
-                    Floor = self.FloorSpin.value(),
-                    HasParking = self.ParkingCombo.currentText(),
-                    HasStoreroom = self.StoreCombo.currentText(),
-                    isVerified = False,
-                    Mode = False,
-                    isSale = False,
-                    CanSell = True,
-                    Nice = 0
+                    Title=self.AdTitle.text(),
+                    Message=self.AdMessage.toPlainText(),
+                    CityPart=self.CityPartCombo.currentText(),
+                    Meter=self.MeterSpin.value(),
+                    Room=self.RoomSpin.value(),
+                    YearsOld=self.YearSpin.value(),
+                    Floor=self.FloorSpin.value(),
+                    HasParking=self.ParkingCombo.currentText(),
+                    HasStoreroom=self.StoreCombo.currentText(),
+                    isVerified=False,
+                    Mode=False,
+                    isSale=False,
+                    CanSell=True,
+                    Nice=0
                 ))
                 self.close()
                 return
             except:
-                errDlg = ErrorDialog("This title is chosen by another user, please use another title!")
+                errDlg = ErrorDialog(
+                    "This title is chosen by another user, please use another title!")
                 errDlg.exec()
                 return
         try:
             DBConnection.execute(HouseTable.insert().values(
-                Title = self.AdTitle.text(),
-                Message = self.AdMessage.toPlainText(),
-                Owner = self.username,
-                Floor = str(self.FloorSpin.value()),
-                CityPart = self.CityPartCombo.currentText(),
-                YearsOld = str(self.YearSpin.value()),
-                Room = str(self.RoomSpin.value()),
-                Meter = str(self.MeterSpin.value()),
-                HasParking = self.ParkingCombo.currentText(),
-                HasStoreroom = self.StoreCombo.currentText(),
-                isVerified = False,
-                Mode = False,
-                isSale = False,
-                CanSell = True,
-                Nice = 0
+                Title=self.AdTitle.text(),
+                Message=self.AdMessage.toPlainText(),
+                Owner=self.username,
+                Floor=str(self.FloorSpin.value()),
+                CityPart=self.CityPartCombo.currentText(),
+                YearsOld=str(self.YearSpin.value()),
+                Room=str(self.RoomSpin.value()),
+                Meter=str(self.MeterSpin.value()),
+                HasParking=self.ParkingCombo.currentText(),
+                HasStoreroom=self.StoreCombo.currentText(),
+                isVerified=False,
+                Mode=False,
+                isSale=False,
+                CanSell=True,
+                Nice=0
             ))
             self.close()
         except:
-            errDlg = ErrorDialog("This title is chosen by another user, please use another title!")
+            errDlg = ErrorDialog(
+                "This title is chosen by another user, please use another title!")
             errDlg.exec()
-            

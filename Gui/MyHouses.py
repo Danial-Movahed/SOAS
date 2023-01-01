@@ -21,22 +21,23 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
         self.show()
 
     def __calcNiceSale(self):
-        tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
-        price=float(self.Dlg.Price.value())
-        meter=int(tmp[4])
-        room=int(tmp[5])
-        year=int(tmp[6])
-        floor=int(tmp[7])
-        parking=tmp[8]
-        store=tmp[9]
+        tmp = DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
+        price = float(self.Dlg.Price.value())
+        meter = int(tmp[4])
+        room = int(tmp[5])
+        year = int(tmp[6])
+        floor = int(tmp[7])
+        parking = tmp[8]
+        store = tmp[9]
         if tmp[3] == "North":
-            loc=4
+            loc = 4
         elif tmp[3] == "West":
-            loc=3
+            loc = 3
         elif tmp[3] == "East":
-            loc=2
+            loc = 2
         elif tmp[3] == "South":
-            loc=1
+            loc = 1
         if parking:
             parking = 2
         else:
@@ -45,8 +46,8 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             store = 1.5
         else:
             store = 1
-        floor/=2
-        floor+=0.5
+        floor /= 2
+        floor += 0.5
         if year != 0:
             nice = loc*room*parking*store*floor/(price/meter)*((year/5)+1)
         else:
@@ -54,21 +55,22 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
         return nice
 
     def __calcNiceRent(self):
-        tmp = DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
-        meter=int(tmp[4])
-        room=int(tmp[5])
-        year=int(tmp[6])
-        floor=int(tmp[7])
-        parking=tmp[8]
-        store=tmp[9]
+        tmp = DBConnection.execute(HouseTable.select().where(
+            HouseTable.c.Title == self.MyAdList.selectedItems()[0].text())).fetchall()[0]
+        meter = int(tmp[4])
+        room = int(tmp[5])
+        year = int(tmp[6])
+        floor = int(tmp[7])
+        parking = tmp[8]
+        store = tmp[9]
         if tmp[3] == "North":
-            loc=16
+            loc = 16
         elif tmp[3] == "West":
-            loc=9
+            loc = 9
         elif tmp[3] == "East":
-            loc=4
+            loc = 4
         elif tmp[3] == "South":
-            loc=1
+            loc = 1
         if parking:
             parking = 2
         else:
@@ -77,9 +79,10 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             store = 1.5
         else:
             store = 1
-        floor/=2
-        floor+=0.5
-        price = (((float(self.Dlg.RentSpin.value())*1000000)/30000)+float(self.Dlg.MortSpin.value()))*7.2/1000
+        floor /= 2
+        floor += 0.5
+        price = (((float(self.Dlg.RentSpin.value())*1000000)/30000) +
+                 float(self.Dlg.MortSpin.value()))*7.2/1000
         if year != 0:
             nice = loc*room*parking*store*floor/(price/meter)*((year/5)+1)
         else:
@@ -95,11 +98,12 @@ class MyHouses(QMainWindow, ui_MyHouses.Ui_MainWindow):
             )).fetchall()[0]
             if not tmp[16]:
                 DBConnection.execute(HouseTable.update().where(
-                HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()
+                    HouseTable.c.Title == self.MyAdList.selectedItems()[
+                        0].text()
                 ).values(
-                    CanSell = True,
-                    Owner = tmp[17],
-                    LOwn = None
+                    CanSell=True,
+                    Owner=tmp[17],
+                    LOwn=None
                 ))
             DBConnection.execute(HouseTable.update().where(
                 HouseTable.c.Title == self.MyAdList.selectedItems()[0].text()

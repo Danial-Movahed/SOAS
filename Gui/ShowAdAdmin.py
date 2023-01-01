@@ -30,7 +30,7 @@ class ShowAdAdmin(QMainWindow, ui_ShowAdAdmin.Ui_MainWindow):
             self.RentPrice.hide()
             self.RentLabel.hide()
             self.SellPrice.setValue(self.Ad[13])
-        
+
         if self.Ad[10]:
             self.CloseBtn.setEnabled(False)
             self.RequestBtn.setEnabled(False)

@@ -1,5 +1,5 @@
 from .include import *
-from . import ui_MyRequests,ViewRequest
+from . import ui_MyRequests, ViewRequest
 
 
 class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
@@ -49,12 +49,18 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             "Are you sure you want to delete this request?", "Question!", self)
         if self.dlg.exec():
             DBConnection.execute(RequestTable.delete().where(
-                RequestTable.c.Title == self.SentRequests.selectedItems()[0].text(0),
-                RequestTable.c.Username == self.SentRequests.selectedItems()[0].text(1),
-                RequestTable.c.Details == self.SentRequests.selectedItems()[0].text(2),
-                RequestTable.c.Price == self.SentRequests.selectedItems()[0].text(3),
-                RequestTable.c.MortPrice == self.SentRequests.selectedItems()[0].text(4),
-                RequestTable.c.RentPrice == self.SentRequests.selectedItems()[0].text(5),
+                RequestTable.c.Title == self.SentRequests.selectedItems()[
+                    0].text(0),
+                RequestTable.c.Username == self.SentRequests.selectedItems()[
+                    0].text(1),
+                RequestTable.c.Details == self.SentRequests.selectedItems()[
+                    0].text(2),
+                RequestTable.c.Price == self.SentRequests.selectedItems()[
+                    0].text(3),
+                RequestTable.c.MortPrice == self.SentRequests.selectedItems()[
+                    0].text(4),
+                RequestTable.c.RentPrice == self.SentRequests.selectedItems()[
+                    0].text(5),
             ))
             self.__refresh()
 
@@ -64,12 +70,18 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             errDlg.exec()
             return
         self.ViewReqWnd = ViewRequest.ViewRequest(DBConnection.execute(RequestTable.select().where(
-            RequestTable.c.Title == self.SentRequests.selectedItems()[0].text(0),
-            RequestTable.c.Username == self.SentRequests.selectedItems()[0].text(1),
-            RequestTable.c.Details == self.SentRequests.selectedItems()[0].text(2),
-            RequestTable.c.Price == self.SentRequests.selectedItems()[0].text(3),
-            RequestTable.c.MortPrice == self.SentRequests.selectedItems()[0].text(4),
-            RequestTable.c.RentPrice == self.SentRequests.selectedItems()[0].text(5),
+            RequestTable.c.Title == self.SentRequests.selectedItems()[
+                0].text(0),
+            RequestTable.c.Username == self.SentRequests.selectedItems()[
+                0].text(1),
+            RequestTable.c.Details == self.SentRequests.selectedItems()[
+                0].text(2),
+            RequestTable.c.Price == self.SentRequests.selectedItems()[
+                0].text(3),
+            RequestTable.c.MortPrice == self.SentRequests.selectedItems()[
+                0].text(4),
+            RequestTable.c.RentPrice == self.SentRequests.selectedItems()[
+                0].text(5),
         )).fetchall()[0][7])
 
     def __ViewReceivedRequest(self):
@@ -78,12 +90,18 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             errDlg.exec()
             return
         self.ViewReqWnd = ViewRequest.ViewRequest(DBConnection.execute(RequestTable.select().where(
-            RequestTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
-            RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
-            RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
-            RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
-            RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[0].text(4),
-            RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[0].text(5),
+            RequestTable.c.Title == self.ReceivedRequests.selectedItems()[
+                0].text(0),
+            RequestTable.c.Username == self.ReceivedRequests.selectedItems()[
+                0].text(1),
+            RequestTable.c.Details == self.ReceivedRequests.selectedItems()[
+                0].text(2),
+            RequestTable.c.Price == self.ReceivedRequests.selectedItems()[
+                0].text(3),
+            RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[
+                0].text(4),
+            RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[
+                0].text(5),
         )).fetchall()[0][7])
 
     def __AcceptReceivedRequest(self):
@@ -95,19 +113,22 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             "Are you sure you want to accept this request?", "Question!", self)
         if self.dlg.exec():
             DBConnection.execute(HouseTable.update().where(
-                HouseTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
+                HouseTable.c.Title == self.ReceivedRequests.selectedItems()[
+                    0].text(0),
             ).values(
-                Owner = self.ReceivedRequests.selectedItems()[0].text(1),
-                isSale = False,
-                Mode = False,
-                SellPrice = 0,
-                MortPrice = 0,
-                RentPrice = 0,
-                CanSell = not DBConnection.execute(HouseTable.select().where(HouseTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0))).fetchall()[0][12],
-                LOwn = self.username
+                Owner=self.ReceivedRequests.selectedItems()[0].text(1),
+                isSale=False,
+                Mode=False,
+                SellPrice=0,
+                MortPrice=0,
+                RentPrice=0,
+                CanSell=not DBConnection.execute(HouseTable.select().where(
+                    HouseTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0))).fetchall()[0][12],
+                LOwn=self.username
             ))
             DBConnection.execute(RequestTable.delete().where(
-                RequestTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
+                RequestTable.c.Title == self.ReceivedRequests.selectedItems()[
+                    0].text(0),
             ))
             self.__refresh()
 
@@ -120,11 +141,17 @@ class MyRequests(QMainWindow, ui_MyRequests.Ui_MainWindow):
             "Are you sure you want to decline this request?", "Question!", self)
         if self.dlg.exec():
             DBConnection.execute(RequestTable.delete().where(
-                RequestTable.c.Title == self.ReceivedRequests.selectedItems()[0].text(0),
-                RequestTable.c.Username == self.ReceivedRequests.selectedItems()[0].text(1),
-                RequestTable.c.Details == self.ReceivedRequests.selectedItems()[0].text(2),
-                RequestTable.c.Price == self.ReceivedRequests.selectedItems()[0].text(3),
-                RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[0].text(4),
-                RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[0].text(5),
+                RequestTable.c.Title == self.ReceivedRequests.selectedItems()[
+                    0].text(0),
+                RequestTable.c.Username == self.ReceivedRequests.selectedItems()[
+                    0].text(1),
+                RequestTable.c.Details == self.ReceivedRequests.selectedItems()[
+                    0].text(2),
+                RequestTable.c.Price == self.ReceivedRequests.selectedItems()[
+                    0].text(3),
+                RequestTable.c.MortPrice == self.ReceivedRequests.selectedItems()[
+                    0].text(4),
+                RequestTable.c.RentPrice == self.ReceivedRequests.selectedItems()[
+                    0].text(5),
             ))
             self.__refresh()

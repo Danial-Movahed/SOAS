@@ -1,6 +1,7 @@
 from .include import *
 from . import ui_ShowAd, RequestPrice, RequestPriceRent
 
+
 class ShowAd(QMainWindow, ui_ShowAd.Ui_MainWindow):
     def __init__(self, title, username):
         super().__init__()
@@ -36,24 +37,25 @@ class ShowAd(QMainWindow, ui_ShowAd.Ui_MainWindow):
             self.RentPrice.hide()
             self.RentLabel.hide()
             self.SellPrice.setValue(self.House[13])
-        
+
         self.show()
 
     def __Request(self):
         if self.House[12]:
-            self.Dlg = RequestPriceRent.RequestPriceRent(self.House[14], self.House[15])
+            self.Dlg = RequestPriceRent.RequestPriceRent(
+                self.House[14], self.House[15])
             self.Dlg.exec()
             if self.Dlg.status:
                 try:
                     DBConnection.execute(RequestTable.insert().values(
-                        Title = self.title,
-                        Details = self.Dlg.Details.toPlainText(),
-                        MortPrice = self.Dlg.MortSpin.value(),
-                        RentPrice = self.Dlg.RentSpin.value(),
-                        Price = 0,
-                        Username = self.username,
-                        To = self.House[2],
-                        Id = self.username+self.title
+                        Title=self.title,
+                        Details=self.Dlg.Details.toPlainText(),
+                        MortPrice=self.Dlg.MortSpin.value(),
+                        RentPrice=self.Dlg.RentSpin.value(),
+                        Price=0,
+                        Username=self.username,
+                        To=self.House[2],
+                        Id=self.username+self.title
                     ))
                 except:
                     errDlg = ErrorDialog("You already have sent your request!")
@@ -65,14 +67,14 @@ class ShowAd(QMainWindow, ui_ShowAd.Ui_MainWindow):
         if self.Dlg.status:
             try:
                 DBConnection.execute(RequestTable.insert().values(
-                    Title = self.title,
-                    Details = self.Dlg.Details.toPlainText(),
-                    Price = self.Dlg.Price.value(),
-                    MortPrice = 0,
-                    RentPrice = 0,
-                    Username = self.username,
-                    To = self.House[2],
-                    Id = self.username+self.title
+                    Title=self.title,
+                    Details=self.Dlg.Details.toPlainText(),
+                    Price=self.Dlg.Price.value(),
+                    MortPrice=0,
+                    RentPrice=0,
+                    Username=self.username,
+                    To=self.House[2],
+                    Id=self.username+self.title
                 ))
             except:
                 errDlg = ErrorDialog("You already have sent your request!")

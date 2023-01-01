@@ -28,7 +28,7 @@ class Login(QMainWindow, ui_Login.Ui_MainWindow):
 
     def check(self):
         user = DBConnection.execute(UsersTable.select().where((UsersTable.c.Username == self.LoginUsername.text()) &
-        (UsersTable.c.Password == blake2s((self.LoginPassword.text()).encode()).hexdigest()))).fetchall()
+                                                              (UsersTable.c.Password == blake2s((self.LoginPassword.text()).encode()).hexdigest()))).fetchall()
         if len(user) == 0:
             self.LoginLabel.setText("Wrong username or password!")
             return

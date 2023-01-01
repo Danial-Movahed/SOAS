@@ -1,20 +1,27 @@
 from .include import *
-from . import MyHouses,MyRequests,ShowAd,ui_AmlakiManager
+from . import MyHouses, MyRequests, ShowAd, ui_AmlakiManager
+
 
 class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
-    def __init__(self,username):
+    def __init__(self, username):
         super().__init__()
         self.setupUi(self)
         self.AmlakiMgmt.clicked.connect(lambda: self.OpenAmlakiMgmt())
         self.MyAds.clicked.connect(lambda: self.__MyAds())
         self.SearchBtn.clicked.connect(lambda: self.__Search())
         self.MyReqs.clicked.connect(lambda: self.__MyReqs())
-        self.MinBuySlider.valueChanged.connect(lambda: self.__ShowSliderValue())
-        self.MaxBuySlider.valueChanged.connect(lambda: self.__ShowSliderValue())
-        self.MinMortSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
-        self.MaxMortSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
-        self.MinRentSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
-        self.MaxRentSlider.valueChanged.connect(lambda: self.__ShowSliderValue())
+        self.MinBuySlider.valueChanged.connect(
+            lambda: self.__ShowSliderValue())
+        self.MaxBuySlider.valueChanged.connect(
+            lambda: self.__ShowSliderValue())
+        self.MinMortSlider.valueChanged.connect(
+            lambda: self.__ShowSliderValue())
+        self.MaxMortSlider.valueChanged.connect(
+            lambda: self.__ShowSliderValue())
+        self.MinRentSlider.valueChanged.connect(
+            lambda: self.__ShowSliderValue())
+        self.MaxRentSlider.valueChanged.connect(
+            lambda: self.__ShowSliderValue())
         self.AdList.itemDoubleClicked.connect(self.__ViewAd)
         self.username = username[0]
         self.AmlakiMgmt.hide()
@@ -23,21 +30,27 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         self.show()
 
     def __ShowSliderValue(self):
-        self.MinBuyLabel.setText("Minimum Buying Price: "+str(self.MinBuySlider.value()/1000)+"B")
-        self.MaxBuyLabel.setText("Maximum Buying Price: "+str(self.MaxBuySlider.value()/1000)+"B")
-        self.MinMortLabel.setText("Minimum Mortgage Price: "+str(self.MinMortSlider.value())+"M")
-        self.MaxMortLabel.setText("Maximum Mortgage Price: "+str(self.MaxMortSlider.value())+"M")
-        self.MinRentLabel.setText("Minimum Rent Price: "+str(self.MinRentSlider.value())+"M")
-        self.MaxRentLabel.setText("Maximum Rent Price: "+str(self.MaxRentSlider.value())+"M")
+        self.MinBuyLabel.setText(
+            "Minimum Buying Price: "+str(self.MinBuySlider.value()/1000)+"B")
+        self.MaxBuyLabel.setText(
+            "Maximum Buying Price: "+str(self.MaxBuySlider.value()/1000)+"B")
+        self.MinMortLabel.setText(
+            "Minimum Mortgage Price: "+str(self.MinMortSlider.value())+"M")
+        self.MaxMortLabel.setText(
+            "Maximum Mortgage Price: "+str(self.MaxMortSlider.value())+"M")
+        self.MinRentLabel.setText(
+            "Minimum Rent Price: "+str(self.MinRentSlider.value())+"M")
+        self.MaxRentLabel.setText(
+            "Maximum Rent Price: "+str(self.MaxRentSlider.value())+"M")
 
-    def __ViewAd(self,item):
-        self.ShowAdWnd = ShowAd.ShowAd(item.text(),self.username)
+    def __ViewAd(self, item):
+        self.ShowAdWnd = ShowAd.ShowAd(item.text(), self.username)
 
     def __MyReqs(self):
         self.MyReqsWnd = MyRequests.MyRequests(self.username)
         self.MyReqsWnd.closeEvent = self.refresh
 
-    def refresh(self,e=None):
+    def refresh(self, e=None):
         self.AdList.clear()
         self.FloorCombo.clear()
         self.CityPartCombo.clear()
@@ -67,7 +80,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
         if s == "Not selected":
             return None
         return s
-    
+
     def __MyAds(self):
         self.MyAdsWnd = MyHouses.MyHouses(self.username)
         self.MyAdsWnd.closeEvent = self.refresh
@@ -86,7 +99,7 @@ class AmlakiManager(QMainWindow, ui_AmlakiManager.Ui_MainWindow):
             Mode = True
         elif Mode == "Buy":
             Mode = False
-        self.AdList.addItems([ x[0] for x in DBConnection.execute(HouseTable.select().where(
+        self.AdList.addItems([x[0] for x in DBConnection.execute(HouseTable.select().where(
             ((Floor == None) or (HouseTable.c.Floor == Floor)),
             ((CityPart == None) or (HouseTable.c.CityPart == CityPart)),
             ((Year == None) or (HouseTable.c.YearsOld == Year)),

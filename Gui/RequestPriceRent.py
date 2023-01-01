@@ -1,8 +1,9 @@
 from .include import *
 from . import ui_RequestPriceRent
 
+
 class RequestPriceRent(QDialog, ui_RequestPriceRent.Ui_Dialog):
-    def __init__(self,stMort,stRent):
+    def __init__(self, stMort, stRent):
         super().__init__()
         self.setupUi(self)
         self.status = False
